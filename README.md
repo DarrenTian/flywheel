@@ -17,3 +17,5 @@ pipenv install
 pipenv shell
 
 python ./app/flywheel.py
+
+(Send email): python ./app/flywheel.py --email
