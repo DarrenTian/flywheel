@@ -3,10 +3,13 @@
 flywheel is a personal investment recommendation tool, until we make it a sophisticated trading bot. :)
 
 ## Components
-market: where we get market data
-signals: where we derive signals from market data
-strategy: where we decide investment strategy
 app: where the main app runs
+
+app>market: where we get market data
+
+app>signals: where we derive signals from market data
+
+app>strategy: where we decide investment strategy
 
 ## Build & Run
 pipenv install
