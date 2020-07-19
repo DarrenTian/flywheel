@@ -9,4 +9,5 @@ strategy: where we decide investment strategy
 app: where the main app runs
 
 ## Build & Run
+pipenv install
 python ./app/flywheel.py
