@@ -4,8 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
+pylint = "*"
 
 [packages]
+pytz = "*"
+google-api-python-client = "*"
+"google-auth-httplib2" = "*"
+google-auth-oauthlib = "*"
+requests = "*"
+google-auth = "*"
 
 [requires]
 python_version = "3.7"

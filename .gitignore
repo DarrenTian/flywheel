@@ -1,0 +1,4 @@
+.vscode/*
+__pycache__/
+app/service/credentials.json
+app/service/token.pickle

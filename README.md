@@ -10,4 +10,7 @@ app: where the main app runs
 
 ## Build & Run
 pipenv install
+
+pipenv shell
+
 python ./app/flywheel.py
