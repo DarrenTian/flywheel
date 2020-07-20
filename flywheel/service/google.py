@@ -14,8 +14,8 @@ from google.auth.transport.requests import Request # pylint: disable=no-name-in-
 # TODO: offline access, otherwise token will expire
 SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
 
-TOKEN_PATH = './app/service/token.pickle'
-CREDENTIAL_PATH = './app/service/credentials.json'
+TOKEN_PATH = './flywheel/service/token.pickle'
+CREDENTIAL_PATH = './flywheel/service/credentials.json'
 
 RECIPIENT = ','.join(['darrentianyy@gmail.com'])
 
