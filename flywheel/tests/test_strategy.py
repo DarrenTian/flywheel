@@ -1,14 +1,24 @@
-from flywheel.strategy.portfolio import Instrument
+from flywheel.strategy.account import Account
+from flywheel.strategy.strategy import DoNothingStrategy, PortfolioRebalanceStrategy
 
-def test(): 
-    pins_portfolio = Instrument('PINS')
-    print(pins_portfolio.name)
-    # goog_portfolio = Instrument('GOOG')
-    # managed_cash_portfolio = Instrument('CASH')
-    # managed_portfolio = Portfolio('MANAGED')
-    # managed_portfolio.add_portfolio(pins_portfolio)
-    # managed_portfolio.add_portfolio(goog_portfolio)
-    # managed_portfolio.add_portfolio(managed_cash_portfolio)
+def test_do_nothing_strategy():
+    print("===test_do_nothing_strategy===")
+    account = Account("DUMMY_ACCOUNT")
+    account.add_cash(10000)
+    do_nothing_strategy = DoNothingStrategy()
+    account.set_strategy(do_nothing_strategy)
+    account.trade()
+    account.show()
+
+def test_portfolio_rebalance_strategy():
+    print("===test_portfolio_rebalance_strategy===")
+    account = Account("DUMMY_ACCOUNT")
+    account.add_cash(10000)
+    portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"GOOG": 0.5, "PINS": 0.5})
+    account.set_strategy(portfolio_rebalance_strategy)
+    account.trade()
+    account.show()
 
 if __name__ == "__main__":
-    test()
+    test_do_nothing_strategy()
+    test_portfolio_rebalance_strategy()
