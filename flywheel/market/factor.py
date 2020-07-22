@@ -1,4 +1,6 @@
 import yfinance as yf
+import numpy as np
+import pandas as pd
 
 
 class factor:
@@ -12,7 +14,7 @@ class factor:
 
     def get_factor(self, stock_name='MSFT'):
         stock = self.stocks.tickers[self.stock_index[stock_name]]
-        return stock.history(period="30d", interval="60m")
+        return stock.history(period="30d", interval="1m")
 
 
 # f = factor()

@@ -1,3 +1,6 @@
+import yfinance as yf
+import json
+
 from datetime import date
 
 market_date = date.today()
@@ -16,4 +19,15 @@ def get_price_on_date(ticker, date):
 
 def get_price(ticker):
     print("Get price for {} on {}".format(ticker, market_date))
-    return get_price_on_date(ticker, market_date)
+
+    with open('stock_data.txt') as json_file:
+        stock_data = json.load(json_file)
+        if ticker not in stock_data or market_date not in stock_data[ticker]:
+            return update_stock_data(ticker)
+        else:
+            return stock_data[ticker][market_date]
+
+
+def update_stock_data(ticker, market_date):
+    # return the data of stock_data[ticker][date]
+    pass
