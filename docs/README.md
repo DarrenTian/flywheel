@@ -32,14 +32,16 @@ flywheel
 
 ## Build & Run
 
-pipenv install
+```commandline
+$ pipenv install
 
-pipenv shell
+$ pipenv run python -m flywheel
 
-python -m flywheel
-
-(Send email): python flywheel --email
+$ pipenv run python flywheel --email # send email
+```
 
 ## TESTS
 
-python -m flywheel.tests.test_{test_name}
+```commandline
+$ pipenv run pytest tests
+```
