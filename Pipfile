@@ -5,11 +5,13 @@ name = "pypi"
 
 [dev-packages]
 pylint = "*"
+pytest = "*"
+ipython = "*"
 
 [packages]
 pytz = "*"
 google-api-python-client = "*"
-"google-auth-httplib2" = "*"
+google-auth-httplib2 = "*"
 google-auth-oauthlib = "*"
 requests = "*"
 google-auth = "*"

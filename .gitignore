@@ -7,3 +7,6 @@ flywheel/service/token.pickle
 .vscode/
 .DS_Store
 *.code-workspace
+
+# pytest
+.pytest_cache
