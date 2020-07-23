@@ -20,13 +20,12 @@ def get_price_on_date(ticker, date):
 def get_price(ticker):
     print("Get price for {} on {}".format(ticker, market_date))
 
-    with open('stock_data.json', 'r') as json_file:
+    with open('./flywheel/market/stock_data.json', 'r') as json_file:
         stock_data = json.load(json_file)
         if ticker not in stock_data or market_date not in stock_data[ticker]:
             return update_stock_data(stock_data, ticker, market_date)
         else:
             return stock_data[ticker][market_date]
-
 
 def update_stock_data(stock_data, ticker, market_date):
     stock = yf.Ticker(ticker)
