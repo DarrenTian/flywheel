@@ -1,4 +1,9 @@
-.vscode/*
 __pycache__/
 flywheel/service/credentials.json
 flywheel/service/token.pickle
+
+# ide
+.idea
+.vscode/
+.DS_Store
+*.code-workspace
