@@ -7,12 +7,17 @@ DUMMY_DATA_PATH = 'flywheel/market/stock_data.json'
 
 market_date = date.today()
 
+# Dumb implemention telling if it's weekday or not
+def is_open():
+    return market_date.isoweekday() in range(1, 5)
+
 def set_date(date):
     global market_date
     market_date = date
 
 def get_price(ticker):
-    print("Get price for {} on {}".format(ticker, market_date))
+    # print("Market is Open: {}".format(is_open()))
+    # print("Get price for {} on {}".format(ticker, market_date))
     market_date_format = str(market_date)[:10]
 
     with open(DUMMY_DATA_PATH, 'r') as json_file:

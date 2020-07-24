@@ -16,6 +16,8 @@ class Account:
   
   # If without specific date, we get operate on the latest market data.
   def trade(self):
+    if not market.is_open():
+      return
     operations = self.strategy.get_operations(self.cash, self.holdings)
     for operation in operations:
       self.operate(operation)
@@ -34,7 +36,14 @@ class Account:
     self.cash -= market.get_price(ticker) * position
     self.holdings[ticker] += position
   
+  def equity(self):
+    holdings_equity = 0
+    for ticker in self.holdings:
+        holdings_equity += self.holdings[ticker] * market.get_price(ticker)
+    all_equity = self.cash + holdings_equity 
+    return all_equity
+  
   def show(self):
     print("Cash: {}".format(self.cash))
-    for holding in self.holdings:
-      print("{}: {}".format(holding, self.holdings[holding]))
+    print(", ".join(map(lambda holding:"{}: {}".format(holding, self.holdings[holding]),self.holdings)))
+    print("Equity: {}".format(self.equity()))

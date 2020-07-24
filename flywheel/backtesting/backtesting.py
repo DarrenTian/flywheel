@@ -8,20 +8,20 @@ from flywheel.strategy.strategy import DoNothingStrategy, PortfolioRebalanceStra
 
 def backtesting(strategy, start_date, end_date):    
     account = Account("DUMMY_ACCOUNT")
-    portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"AAPL": 0.5, "AMZN": 0.5})
+    portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"BABA": 0.5, "EBAY": 0.5})
     account.set_strategy(portfolio_rebalance_strategy)
     account.add_cash(10000)
 
+    account_snapshot = []
     day_range = (end_date - start_date).days
     for day in range(day_range):
         date = start_date + timedelta(days=day)
         market.set_date(date)
-        account.trade()
-        account.show()
-    # This should generate a pandas series
-    # pandas pct_change() will generate a sequence in terms of pct
-    # test
-    returns = pd.Series([100, 150, 120])
+        if market.is_open():
+            account.trade()
+            account.show()
+            account_snapshot.append(account.equity())
+    returns = pd.Series(account_snapshot)
     return returns.pct_change().fillna(0)
 
 def evaluate(strategy, start_date, end_date):
