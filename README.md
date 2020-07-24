@@ -4,7 +4,8 @@ flywheel is a personal investment recommendation tool, until we make it a sophis
 
 ## Components
 
-```text
+```commandline
+$ tree flywheel # mac: brew install tree, this tool will print everything in the folder.
 flywheel
 ├── __init__.py
 ├── __main__.py
