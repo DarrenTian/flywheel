@@ -1,5 +1,5 @@
 import datetime
-from datetime import timedelta
+from datetime import date, timedelta
 import pandas as pd
 
 from flywheel.market import market
@@ -7,26 +7,26 @@ from flywheel.strategy.account import Account
 from flywheel.strategy.strategy import DoNothingStrategy, PortfolioRebalanceStrategy
 
 def backtesting(strategy, start_date, end_date):    
-    # account = Account("DUMMY_ACCOUNT")
-    # portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"GOOG": 0.5, "PINS": 0.5})
-    # account.set_strategy(portfolio_rebalance_strategy)
-    # account.add_cash(10000)
+    account = Account("DUMMY_ACCOUNT")
+    portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"AAPL": 0.5, "AMZN": 0.5})
+    account.set_strategy(portfolio_rebalance_strategy)
+    account.add_cash(10000)
 
-    # start_date = datetime.datetime(2020, 1, 1)
-    # end_date = datetime.datetime(2020, 2, 1)
-    # day_range = (end_date - start_date).days
-    # for day in range(day_range):
-    #     date = start_date + timedelta(days=day)
-    #     market.set_date(date)
-    #     account.trade()
-    #     #account.show()
-    # # This should generate a pandas series
-    # # pandas pct_change() will generate a sequence in terms of pct
-    # # test
+    day_range = (end_date - start_date).days
+    for day in range(day_range):
+        date = start_date + timedelta(days=day)
+        market.set_date(date)
+        account.trade()
+        account.show()
+    # This should generate a pandas series
+    # pandas pct_change() will generate a sequence in terms of pct
+    # test
     returns = pd.Series([100, 150, 120])
     return returns.pct_change().fillna(0)
 
 def evaluate(strategy, start_date, end_date):
+    end_date = date.today()
+    start_date = end_date - timedelta(days=10)
     returns  = backtesting(strategy, start_date, end_date)    
     metrics = {}
     metrics['Total Return'] = returns.sum()

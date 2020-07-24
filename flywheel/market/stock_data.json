@@ -1,14 +1,5 @@
 {
     "AAPL": {
-        "2020-07-09": {
-            "Open": 385.05,
-            "High": 385.27,
-            "Low": 378.69,
-            "Close": 383.01,
-            "Volume": 31410700,
-            "Dividends": 0,
-            "Stock Splits": 0
-        },
         "2020-07-10": {
             "Open": 381.34,
             "High": 383.92,
@@ -86,21 +77,21 @@
             "High": 391.9,
             "Low": 386.41,
             "Close": 389.09,
-            "Volume": 22215400,
+            "Volume": 22250400,
+            "Dividends": 0,
+            "Stock Splits": 0
+        },
+        "2020-07-23": {
+            "Open": 387.99,
+            "High": 388.31,
+            "Low": 368.04,
+            "Close": 371.38,
+            "Volume": 49081100,
             "Dividends": 0,
             "Stock Splits": 0
         }
     },
     "AMZN": {
-        "2020-07-09": {
-            "Open": 3115.99,
-            "High": 3193.88,
-            "Low": 3074.0,
-            "Close": 3182.63,
-            "Volume": 6388700,
-            "Dividends": 0,
-            "Stock Splits": 0
-        },
         "2020-07-10": {
             "Open": 3191.76,
             "High": 3215.0,
@@ -178,7 +169,16 @@
             "High": 3150.0,
             "Low": 3065.26,
             "Close": 3099.91,
-            "Volume": 4091800,
+            "Volume": 4104200,
+            "Dividends": 0,
+            "Stock Splits": 0
+        },
+        "2020-07-23": {
+            "Open": 3098.27,
+            "High": 3098.27,
+            "Low": 2970.0,
+            "Close": 2986.55,
+            "Volume": 5633800,
             "Dividends": 0,
             "Stock Splits": 0
         }

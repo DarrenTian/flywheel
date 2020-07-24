@@ -3,25 +3,24 @@ import json
 
 from datetime import date
 
+DUMMY_DATA_PATH = 'flywheel/market/stock_data.json'
+
 market_date = date.today()
 
 def set_date(date):
     global market_date
     market_date = date
 
-def get_price_on_date(ticker, date):
-    return get_price(ticker, date)
-
 def get_price(ticker):
     print("Get price for {} on {}".format(ticker, market_date))
     market_date_format = str(market_date)[:10]
 
-    with open('stock_data.json', 'r') as json_file:
+    with open(DUMMY_DATA_PATH, 'r') as json_file:
         stock_data = json.load(json_file)
-        if ticker not in stock_data or market_date not in stock_data[ticker]:
-            return update_stock_data(stock_data, ticker, market_date_format)
+        if ticker not in stock_data or market_date_format not in stock_data[ticker]:
+            return update_stock_data(stock_data, ticker, market_date_format)['Close']
         else:
-            return stock_data[ticker][market_date_format]
+            return stock_data[ticker][market_date_format]['Close']
 
 def update_stock_data(stock_data, ticker, market_date_format):
     stock = yf.Ticker(ticker)
@@ -29,7 +28,7 @@ def update_stock_data(stock_data, ticker, market_date_format):
 
     # overwrites ticker history price data, updates the stock data and stores as json file
     stock_data[ticker] = stock_history_price_dict
-    with open('stock_data.json', 'w') as json_file:
+    with open(DUMMY_DATA_PATH, 'w') as json_file:
         json.dump(stock_data, json_file, indent=4)
     return stock_data[ticker][market_date_format]
 
