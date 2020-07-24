@@ -30,9 +30,11 @@ def evaluate(strategy, start_date, end_date):
     returns  = backtesting(strategy, start_date, end_date)    
     metrics = {}
     metrics['Total Return'] = returns.sum()
-    for metric in metrics:
-        print("{}:{}".format(metric, metrics[metric]))
+    # TODO: Max DrawDown, Volatility, Expected Daily/Monthly/Yearly, Daily Value-at-Risk
+    return metrics
 
 if __name__ == "__main__":
     portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"GOOG": 0.5, "PINS": 0.5})
-    evaluate(portfolio_rebalance_strategy, '01/01/2020', '02/01/2020')
+    metrics = evaluate(portfolio_rebalance_strategy, '01/01/2020', '02/01/2020')
+    for metric in metrics:
+        print("{}:{}".format(metric, metrics[metric]))
