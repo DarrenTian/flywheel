@@ -1,4 +1,4 @@
-from flywheel import app
+from flywheel.cli import cli
 
 if __name__ == '__main__':
-  app.run()
+    cli()

@@ -9,7 +9,7 @@ $ tree flywheel # mac: brew install tree, this tool will print everything in the
 flywheel
 ├── __init__.py
 ├── __main__.py
-├── app.py # where the main app runs
+├── cli.py # command line tool
 ├── backtesting
 │   ├── __init__.py
 │   └── backtesting.py
@@ -36,9 +36,9 @@ flywheel
 ```commandline
 $ pipenv install
 
-$ pipenv run python -m flywheel
+$ pipenv run python -m flywheel.cli
 
-$ pipenv run python flywheel --email # send email
+$ pipenv run python -m flywheel.cli --email # send email
 ```
 
 ## TESTS

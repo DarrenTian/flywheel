@@ -1,0 +1,14 @@
+.git
+*/.git
+.vscode
+*/.vscode
+.idea
+*/.idea
+.venv
+*/.venv
+Makefile
+.pytest_cache
+*/.pytest_cache
+/node_modules
+/static
+*.db

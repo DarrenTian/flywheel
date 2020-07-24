@@ -1,6 +1,6 @@
 __pycache__/
-flywheel/service/credentials.json
-flywheel/service/token.pickle
+flywheel/utils/credentials.json
+flywheel/utils/token.pickle
 
 # ide
 .idea
@@ -10,3 +10,8 @@ flywheel/service/token.pickle
 
 # pytest
 .pytest_cache
+
+# db
+*.db
+
+requirements.txt

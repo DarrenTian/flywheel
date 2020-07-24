@@ -1,0 +1,47 @@
+version: "3"
+services:
+  cron:
+    container_name: flywheel-cron
+    image: "flywheel:latest"
+    command: celery -A tasks.cron beat --loglevel=info
+    environment:
+      - TZ=Asia/Shanghai
+      - FW_DB_URL=mysql://root:123456@mysql:3306/flywheel
+      - FW_REDIS_URI=redis://redis:6379
+    depends_on:
+      - mysql
+      - redis
+
+  worker:
+    container_name: flywheel-worker
+    image: "flywheel:latest"
+    command: celery -A tasks worker -P gevent --loglevel=info
+    environment:
+      - TZ=Asia/Shanghai
+      - FW_DB_URL=mysql://root:123456@mysql:3306/flywheel
+      - FW_REDIS_URI=redis://redis:6379
+    depends_on:
+      - mysql
+      - redis
+
+  mysql:
+    container_name: flywheel-mysql
+    image: "mysql:5.7"
+    volumes:
+      - /private/data/docker_volumes/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=flywheel
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - "3306:3306"
+    restart: always
+
+  redis:
+    container_name: flywheel-redis
+    image: "redis:5.0"
+    command: redis-server --appendonly yes
+    volumes:
+      - /private/data/docker_volumes/redis:/data
+    ports:
+      - "6379:6379"
+    restart: always

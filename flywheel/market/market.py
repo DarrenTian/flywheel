@@ -15,6 +15,7 @@ def set_date(date):
     global market_date
     market_date = date
 
+
 def get_price(ticker):
     # print("Market is Open: {}".format(is_open()))
     # print("Get price for {} on {}".format(ticker, market_date))
@@ -27,6 +28,7 @@ def get_price(ticker):
         else:
             return stock_data[ticker][market_date_format]['Close']
 
+
 def update_stock_data(stock_data, ticker, market_date_format):
     stock = yf.Ticker(ticker)
     stock_history_price_dict = crawl_stock_history_price(stock, "10d", "1d")
@@ -36,6 +38,7 @@ def update_stock_data(stock_data, ticker, market_date_format):
     with open(DUMMY_DATA_PATH, 'w') as json_file:
         json.dump(stock_data, json_file, indent=4)
     return stock_data[ticker][market_date_format]
+
 
 def crawl_stock_history_price(stock_ticker, period="10d", interval="1d"):
     ticker_history_price = stock_ticker.history(period=period, interval=interval)

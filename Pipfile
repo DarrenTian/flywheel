@@ -16,6 +16,13 @@ google-auth-oauthlib = "*"
 requests = "*"
 google-auth = "*"
 yfinance = "*"
+lxml = "*"
+click = "*"
+celery = "*"
+peewee = "*"
+gevent = "*"
+pymysql = "*"
+redis = "*"
 
 [requires]
 python_version = "3.7"
