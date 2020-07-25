@@ -62,8 +62,8 @@ flywheel
 
 ```commandline
 $ pipenv install
-$ pipenv run python -m flywheel.cli
-$ pipenv run python -m flywheel.cli --email # send email
+$ pipenv run python -m flywheel
+$ pipenv run python -m flywheel --email # send email
 ```
 
 ### docker run
