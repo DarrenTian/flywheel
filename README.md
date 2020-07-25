@@ -84,3 +84,14 @@ $ pipenv run python scripts/db.py
 ```commandline
 $ pipenv run pytest tests
 ```
+
+## Cron tasks
+
+This project use [celery](https://docs.celeryproject.org/en/stable/getting-started/introduction.html) to implement async job and cron job, all the task was defined in the tasks package:
+
+```commandline
+$ tree tasks
+tasks
+├── __init__.py # all the celery tasks can be found in it
+└── cron.py # all the celery cron tasks can be found in it
+```
