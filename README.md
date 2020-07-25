@@ -40,8 +40,8 @@ flywheel
 │   ├── stock_data.json
 │   ├── stock_list
 │   └── yahoo.py
-├── models.py
-├── settings.py
+├── models.py # orm models
+├── settings.py # configs
 ├── signals # where we derive signals from market data
 │   ├── README.txt
 │   ├── TODO
