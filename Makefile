@@ -4,7 +4,7 @@ clean:
 
 init: clean
 	pipenv sync
-	test ! -f || rm requirements.txt
+	find . -name "requirements.txt" -delete
 	pipenv run pip freeze > requirements.txt
 
 build: init
