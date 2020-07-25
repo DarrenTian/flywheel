@@ -2,6 +2,14 @@
 
 flywheel is a personal investment recommendation tool, until we make it a sophisticated trading bot. :)
 
+## Software Dependency
+
+| Software | Version |
+|----------|---------|
+| python   | 3.7     |
+| mysql    | 5.7     |
+| redis    | 5.0     |
+
 ## Project Structure
 
 ```commandline
