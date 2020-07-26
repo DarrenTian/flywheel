@@ -45,3 +45,35 @@ def crawl_stock_history_price(stock_ticker, period="10d", interval="1d"):
     ticker_history_price.index = ticker_history_price.index.to_series().apply(lambda x: str(x)[:10])
     print(ticker_history_price)
     return ticker_history_price.to_dict('index')
+
+class market:
+
+    # TODO: implement crawling and query function
+
+    def __init__(self):
+        self.DUMMY_DATA_PATH = 'flywheel/market/stock_data.json'
+        self.market_date = date.today()
+        self.period = '10d'
+        self.interval = '1d'
+
+    def set_dummy_data_path(self, DUMMY_DATA_PATH):
+        self.DUMMY_DATA_PATH = DUMMY_DATA_PATH
+
+    def set_market_date(self, market_date):
+        self.market_date = market_date
+
+    def set_period(self, period):
+        self.period = period
+
+    def set_interval(self, interval):
+        self.interval = interval
+
+    def get_price(self, ticker='MSFT'):
+        market_date_format = str(market_date)[:10]
+
+        with open(DUMMY_DATA_PATH, 'r') as json_file:
+            stock_data = json.load(json_file)
+            if ticker not in stock_data or market_date_format not in stock_data[ticker]:
+                return update_stock_data(stock_data, ticker, market_date_format)['Close']
+            else:
+                return stock_data[ticker][market_date_format]['Close']
