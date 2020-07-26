@@ -5,7 +5,7 @@ services:
     image: "flywheel:latest"
     command: celery -A tasks.cron beat --loglevel=info
     environment:
-      - TZ=Asia/Shanghai
+#      - TZ=Asia/Shanghai
       - FW_DB_URL=mysql://root:123456@mysql:3306/flywheel
       - FW_REDIS_URI=redis://redis:6379
     depends_on:
@@ -17,7 +17,7 @@ services:
     image: "flywheel:latest"
     command: celery -A tasks worker -P gevent --loglevel=info
     environment:
-      - TZ=Asia/Shanghai
+#      - TZ=Asia/Shanghai
       - FW_DB_URL=mysql://root:123456@mysql:3306/flywheel
       - FW_REDIS_URI=redis://redis:6379
     depends_on:
