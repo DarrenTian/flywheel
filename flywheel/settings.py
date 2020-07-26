@@ -5,5 +5,5 @@ STOCK_LIST = Config.get_list('STOCK_LIST', [
     'MSFT', 'NIKE', 'PINS', 'PYPL', 'RKUNY', 'SBUX', 'TSLA', 'TWTR', 'UBER'
 ])
 TZ = Config.get('TZ', 'Asia/Shanghai')
-REDIS_URI = Config.get('REDIS_URI', 'redis://localhost:6379')
+REDIS_URI = Config.get('REDIS_URI', 'redis://127.0.0.1:6379')
 DB_URL = Config.get('DB_URL', 'mysql://root:123456@127.0.0.1:3306/flywheel')
