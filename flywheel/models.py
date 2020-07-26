@@ -6,6 +6,7 @@ from playhouse.db_url import connect
 from playhouse.shortcuts import model_to_dict
 
 from flywheel.settings import DB_URL
+from flywheel.consts import Market
 
 logger = logging.getLogger(__name__)
 db = connect(DB_URL)
@@ -43,7 +44,7 @@ class BaseModel(Model):
 
 
 class Stock(BaseModel):
-    market = CharField(null=False, default='')
+    market = CharField(null=False, default=Market.UNKNOWN)
     ticker = CharField(null=False, default='')
 
     class Meta:
