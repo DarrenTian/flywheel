@@ -2,6 +2,7 @@ import datetime
 from datetime import date, timedelta
 import pandas as pd
 
+from flywheel.backtesting import stats
 from flywheel.market import market
 from flywheel.strategy.account import Account
 from flywheel.strategy.strategy import DoNothingStrategy, PortfolioRebalanceStrategy
@@ -24,15 +25,21 @@ def backtesting(strategy, start_date, end_date):
     prices = pd.Series(account_snapshot)
     return prices
 
+def calculate_metrics(prices):
+    metrics = {}
+
+    returns = prices.pct_change().fillna(0)
+    metrics['Total Return'] = stats.total_return(returns)
+    metrics['Max DrawDown'] = stats.max_drawdown(prices)
+    # TODO: Max DrawDown, Volatility, Expected Daily/Monthly/Yearly, Daily Value-at-Risk
+    return metrics
+
+
 def evaluate(strategy, start_date, end_date):
     end_date = date.today()
     start_date = end_date - timedelta(days=10)
     prices  = backtesting(strategy, start_date, end_date)    
-    returns = prices.pct_change().fillna(0)
-    metrics = {}
-    metrics['Total Return'] = returns.sum()
-    metrics['Max DrawDown'] = (prices / prices.expanding(min_periods=0).max()).min() - 1
-    # TODO: Max DrawDown, Volatility, Expected Daily/Monthly/Yearly, Daily Value-at-Risk
+    metrics = calculate_metrics(prices)
     return metrics
 
 if __name__ == "__main__":
