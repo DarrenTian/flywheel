@@ -137,3 +137,7 @@ local_config.py
 # celery
 *.pid
 *.db
+
+# credentials
+flywheel/utils/credentials.json
+flywheel/utils/token.pickle
