@@ -21,15 +21,17 @@ def backtesting(strategy, start_date, end_date):
             account.trade()
             account.show()
             account_snapshot.append(account.equity())
-    returns = pd.Series(account_snapshot)
-    return returns.pct_change().fillna(0)
+    prices = pd.Series(account_snapshot)
+    return prices
 
 def evaluate(strategy, start_date, end_date):
     end_date = date.today()
     start_date = end_date - timedelta(days=10)
-    returns  = backtesting(strategy, start_date, end_date)    
+    prices  = backtesting(strategy, start_date, end_date)    
+    returns = prices.pct_change().fillna(0)
     metrics = {}
     metrics['Total Return'] = returns.sum()
+    metrics['Max DrawDown'] = (prices / prices.expanding(min_periods=0).max()).min() - 1
     # TODO: Max DrawDown, Volatility, Expected Daily/Monthly/Yearly, Daily Value-at-Risk
     return metrics
 
@@ -37,4 +39,4 @@ if __name__ == "__main__":
     portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"GOOG": 0.5, "PINS": 0.5})
     metrics = evaluate(portfolio_rebalance_strategy, '01/01/2020', '02/01/2020')
     for metric in metrics:
-        print("{}:{}".format(metric, metrics[metric]))
+        print("{}:\n{}".format(metric, metrics[metric]))

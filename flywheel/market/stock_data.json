@@ -184,24 +184,6 @@
         }
     },
     "BABA": {
-        "2020-07-09": {
-            "Open": 265.55,
-            "High": 268.0,
-            "Low": 255.91,
-            "Close": 261.58,
-            "Volume": 36803900,
-            "Dividends": 0,
-            "Stock Splits": 0
-        },
-        "2020-07-10": {
-            "Open": 260.21,
-            "High": 261.9,
-            "Low": 255.71,
-            "Close": 261.01,
-            "Volume": 20335000,
-            "Dividends": 0,
-            "Stock Splits": 0
-        },
         "2020-07-13": {
             "Open": 261.45,
             "High": 265.66,
@@ -270,7 +252,25 @@
             "High": 256.27,
             "Low": 249.6,
             "Close": 251.7,
-            "Volume": 19519451,
+            "Volume": 19682200,
+            "Dividends": 0,
+            "Stock Splits": 0
+        },
+        "2020-07-23": {
+            "Open": 252.1,
+            "High": 257.66,
+            "Low": 248.69,
+            "Close": 251.88,
+            "Volume": 25712000,
+            "Dividends": 0,
+            "Stock Splits": 0
+        },
+        "2020-07-24": {
+            "Open": 244.96,
+            "High": 249.48,
+            "Low": 241.89,
+            "Close": 249.0,
+            "Volume": 17215300,
             "Dividends": 0,
             "Stock Splits": 0
         }
@@ -368,24 +368,6 @@
         }
     },
     "EBAY": {
-        "2020-07-09": {
-            "Open": 58.73,
-            "High": 60.53,
-            "Low": 58.52,
-            "Close": 59.22,
-            "Volume": 15414600,
-            "Dividends": 0,
-            "Stock Splits": 0
-        },
-        "2020-07-10": {
-            "Open": 59.35,
-            "High": 59.89,
-            "Low": 58.12,
-            "Close": 59.27,
-            "Volume": 11750700,
-            "Dividends": 0,
-            "Stock Splits": 0
-        },
         "2020-07-13": {
             "Open": 60.29,
             "High": 61.06,
@@ -454,7 +436,25 @@
             "High": 57.43,
             "Low": 56.13,
             "Close": 56.34,
-            "Volume": 9138100,
+            "Volume": 9139800,
+            "Dividends": 0,
+            "Stock Splits": 0
+        },
+        "2020-07-23": {
+            "Open": 56.44,
+            "High": 56.82,
+            "Low": 54.86,
+            "Close": 55.15,
+            "Volume": 9819200,
+            "Dividends": 0,
+            "Stock Splits": 0
+        },
+        "2020-07-24": {
+            "Open": 55.02,
+            "High": 55.36,
+            "Low": 54.04,
+            "Close": 55.12,
+            "Volume": 6508200,
             "Dividends": 0,
             "Stock Splits": 0
         }
