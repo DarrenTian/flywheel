@@ -1,5 +1,4 @@
 from collections import defaultdict
-from flywheel.market import market
 
 class Account:
   def __init__(self, name):
@@ -7,18 +6,23 @@ class Account:
     self.cash = 0
     self.holdings = defaultdict(int)
     self.strategy = None
+    self.market = None
   
   def add_cash(self, amount):
     self.cash += amount
+  
+  # This is a hack to share market reference, ideally it should be inejcted based on context
+  def set_market(self, market):
+    self.market = market
   
   def set_strategy(self, strategy):
     self.strategy = strategy
   
   # If without specific date, we get operate on the latest market data.
   def trade(self):
-    if not market.is_open():
+    if not self.market.is_open():
       return
-    operations = self.strategy.get_operations(self.cash, self.holdings)
+    operations = self.strategy.get_operations(self)
     for operation in operations:
       self.operate(operation)
   
@@ -30,16 +34,16 @@ class Account:
 
   def liquidate(self, ticker, position):
     self.holdings[ticker] -= position
-    self.cash += market.get_price(ticker) * position
+    self.cash += self.market.get_price(ticker) * position
   
   def purchase(self, ticker, position):
-    self.cash -= market.get_price(ticker) * position
+    self.cash -= self.market.get_price(ticker) * position
     self.holdings[ticker] += position
   
   def equity(self):
     holdings_equity = 0
     for ticker in self.holdings:
-        holdings_equity += self.holdings[ticker] * market.get_price(ticker)
+        holdings_equity += self.holdings[ticker] * self.market.get_price(ticker)
     all_equity = self.cash + holdings_equity 
     return all_equity
   

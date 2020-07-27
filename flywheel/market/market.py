@@ -8,8 +8,7 @@ DUMMY_DATA_PATH = 'flywheel/market/stock_data.json'
 market_date = date.today()
 
 # Dumb implemention telling if it's weekday or not
-def is_open():
-    return market_date.isoweekday() in range(1, 5)
+
 
 def set_date(date):
     global market_date
@@ -46,7 +45,7 @@ def crawl_stock_history_price(stock_ticker, period="10d", interval="1d"):
     print(ticker_history_price)
     return ticker_history_price.to_dict('index')
 
-class market:
+class Market:
 
     # TODO: implement crawling and query function
 
@@ -55,6 +54,9 @@ class market:
         self.market_date = date.today()
         self.period = '10d'
         self.interval = '1d'
+
+    def is_open(self):
+        return self.market_date.isoweekday() in range(1, 5)
 
     def set_dummy_data_path(self, DUMMY_DATA_PATH):
         self.DUMMY_DATA_PATH = DUMMY_DATA_PATH
