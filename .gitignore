@@ -144,3 +144,6 @@ flywheel/utils/token.pickle
 
 #jupyter notebook
 .ipynb
+
+# requirements
+requirements.txt
