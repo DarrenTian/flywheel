@@ -69,11 +69,22 @@ class market:
         self.interval = interval
 
     def get_price(self, ticker='MSFT'):
-        market_date_format = str(market_date)[:10]
+        market_date_format = str(self.market_date)[:10]
 
-        with open(DUMMY_DATA_PATH, 'r') as json_file:
+        with open(self.DUMMY_DATA_PATH, 'r') as json_file:
             stock_data = json.load(json_file)
             if ticker not in stock_data or market_date_format not in stock_data[ticker]:
-                return update_stock_data(stock_data, ticker, market_date_format)['Close']
+                return self.update_stock_data(stock_data, ticker, market_date_format)['Close']
             else:
                 return stock_data[ticker][market_date_format]['Close']
+
+    def update_stock_data(self, stock_data, ticker, market_date_format):
+        stock = yf.Ticker(ticker)
+        stock_history_price_dict = crawl_stock_history_price(stock, self.period, self.interval)
+
+        # overwrites ticker history price data, updates the stock data and stores as json file
+        stock_data[ticker] = stock_history_price_dict
+        with open(self.DUMMY_DATA_PATH, 'w') as json_file:
+            json.dump(stock_data, json_file, indent=4)
+        return stock_data[ticker][market_date_format]
+
