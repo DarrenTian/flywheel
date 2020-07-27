@@ -20,7 +20,7 @@ class Account:
   
   # If without specific date, we get operate on the latest market data.
   def trade(self):
-    if not self.market.is_open():
+    if self.market and not self.market.is_open():
       return
     operations = self.strategy.get_operations(self)
     for operation in operations:

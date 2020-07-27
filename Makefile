@@ -7,6 +7,9 @@ init: clean
 	find . -name "requirements.txt" -delete
 	pipenv run pip freeze > requirements.txt
 
+test: clean
+	pipenv run pytest tests
+
 build: init
 	@echo "--> Building image..."
 	docker build --rm -t flywheel:latest .
