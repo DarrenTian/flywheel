@@ -21,7 +21,7 @@ def crawl_stock_history_data(ticker: str, days=7):
         stock = Stock.get_by_ticker(ticker)
         if not stock:
             raise UserError(f'stock {ticker} not found')
-        logger.info(f'start to crawl market {stock.market} {ticker} history data...')
+        logger.info(f'start to crawl {ticker} last {days} days data...')
         prices = get_stock_history_prices(
             ticker,
             start=(datetime.now() - timedelta(days=days)).date(),
@@ -41,7 +41,7 @@ def crawl_stock_history_data(ticker: str, days=7):
             ) for date, price in prices.items()],
             batch_size=100
         )
-        logger.info(f'crawl {ticker} history data done.')
+        logger.info(f'crawl {ticker} last {days} days data done.')
     except UserError as e:
         logger.exception(e)
     except Exception as e:
