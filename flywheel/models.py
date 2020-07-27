@@ -45,7 +45,7 @@ class BaseModel(Model):
 
 class Stock(BaseModel):
     market = CharField(null=False, default=Market.UNKNOWN)
-    ticker = CharField(null=False, default='')
+    ticker = CharField(null=False, default='', index=True)
 
     class Meta:
         indexes = (
