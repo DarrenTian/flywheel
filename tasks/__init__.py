@@ -16,7 +16,7 @@ app.conf.timezone = TZ
 
 
 @app.task
-def crawl_stock_history_data(ticker: str, weeks=1, days=0, hours=0, minutes=0, seconds=0):
+def crawl_stock_history_data(ticker: str, days=7):
     try:
         stock = Stock.get_by_ticker(ticker)
         if not stock:
@@ -24,13 +24,7 @@ def crawl_stock_history_data(ticker: str, weeks=1, days=0, hours=0, minutes=0, s
         logger.info(f'start to crawl market {stock.market} {ticker} history data...')
         prices = get_stock_history_prices(
             ticker,
-            start=(datetime.now() - timedelta(
-                weeks=weeks,
-                days=days,
-                hours=hours,
-                minutes=minutes,
-                seconds=seconds
-            )).date(),
+            start=(datetime.now() - timedelta(days=days)).date(),
             end=datetime.now().date())
         logger.info(f'finished crawl {ticker} data, and start to store in database...')
         StockPrice.bulk_create(
@@ -55,9 +49,7 @@ def crawl_stock_history_data(ticker: str, weeks=1, days=0, hours=0, minutes=0, s
 
 
 @app.task
-def crawl_all_stock_history_data(weeks=1, days=0, hours=0, seconds=0):
+def crawl_all_stock_history_data(days=7):
     stocks = Stock.all()
     for stock in stocks:
-        crawl_stock_history_data.delay(
-            ticker=stock.ticker, weeks=weeks, days=days, hours=hours, seconds=seconds
-        )
+        crawl_stock_history_data.delay(ticker=stock.ticker, days=days)
