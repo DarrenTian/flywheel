@@ -141,3 +141,6 @@ local_config.py
 # credentials
 flywheel/utils/credentials.json
 flywheel/utils/token.pickle
+
+#jupyter notebook
+.ipynb

@@ -6,4 +6,4 @@ STOCK_LIST = Config.get_list('STOCK_LIST', [
 ])
 TZ = Config.get('TZ', 'Asia/Shanghai')
 REDIS_URI = Config.get('REDIS_URI', 'redis://127.0.0.1:6379')
-DB_URL = Config.get('DB_URL', 'mysql://root:123456@127.0.0.1:3306/flywheel')
+DB_URL = Config.get('DB_URL', 'sqlite:///flywheel.db')

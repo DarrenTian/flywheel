@@ -13,14 +13,14 @@ db = connect(DB_URL)
 
 
 class BaseModel(Model):
-    created_at = DateTimeField(default=datetime.now, index=True, constraints=[SQL('DEFAULT CURRENT_TIMESTAMP')])
-    updated_at = DateTimeField(default=datetime.now, index=True,
-                               constraints=[SQL('DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP')])
+    created_at = DateTimeField(default=datetime.now, index=True)
+    updated_at = DateTimeField(default=datetime.now, index=True)
 
     class Meta:
         database = db
         legacy_table_names = False
-        table_settings = ['ENGINE=InnoDB', 'DEFAULT CHARSET=utf8']
+        if isinstance(db, MySQLDatabase):
+            table_settings = ['ENGINE=InnoDB', 'DEFAULT CHARSET=utf8']
 
     def save(self, *args, **kwargs):
         self.updated_at = datetime.now()

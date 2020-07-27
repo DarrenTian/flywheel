@@ -1,4 +1,6 @@
-from flywheel.models import db, BaseModel
+from flywheel.models import *
+from flywheel.settings import *
+from flywheel.consts import *
 
 
 def get_all_models():
@@ -18,8 +20,14 @@ def drop_all_tables():
     db.drop_tables(get_all_models())
 
 
+def init_data():
+    for stock in STOCK_LIST:
+        Stock.create(ticker=stock, market=Market.NASDAQ)
+
+
 def init():
     create_all_tables()
+    init_data()
 
 
 if __name__ == '__main__':
