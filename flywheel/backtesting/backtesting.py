@@ -11,8 +11,7 @@ market = Market()
 
 def backtesting(strategy, start_date, end_date):    
     account = Account("DUMMY_ACCOUNT")
-    portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"BABA": 0.5, "EBAY": 0.5})
-    account.set_strategy(portfolio_rebalance_strategy)
+    account.set_strategy(strategy)
     account.add_cash(10000)
     account.set_market(market)
 
@@ -34,7 +33,7 @@ def evaluate(strategy, start_date, end_date):
     return metrics
 
 if __name__ == "__main__":
-    portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"GOOG": 0.5, "PINS": 0.5})
+    portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"INTC": 0.5, "GOOG": 0.5})
     metrics = evaluate(portfolio_rebalance_strategy, datetime.date(2020, 1, 1), date.today())
     for metric in metrics:
         print("{}:\n{}".format(metric, metrics[metric]))

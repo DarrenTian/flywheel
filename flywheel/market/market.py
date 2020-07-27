@@ -45,6 +45,11 @@ def crawl_stock_history_price(stock_ticker, period="10d", interval="1d"):
     print(ticker_history_price)
     return ticker_history_price.to_dict('index')
 
+def is_holiday(date):
+    return date.isoformat() in \
+        ['2020-01-01', '2020-01-20','2020-02-17','2020-05-25','2020-07-03','2020-07-04','2020-09-07',
+         '2020-07-04', '2020-10-12','2020-11-11','2020-11-26','2020-12-25']
+
 class Market:
 
     # TODO: implement crawling and query function
@@ -52,10 +57,12 @@ class Market:
     def __init__(self):
         self.DUMMY_DATA_PATH = 'flywheel/market/stock_data.json'
         self.market_date = date.today()
-        self.period = '10d'
+        self.period = '2y'
         self.interval = '1d'
 
     def is_open(self):
+        if is_holiday(self.market_date):
+            return False
         return self.market_date.isoweekday() in range(1, 5)
 
     def set_dummy_data_path(self, DUMMY_DATA_PATH):
@@ -71,6 +78,7 @@ class Market:
         self.interval = interval
 
     def get_price(self, ticker='MSFT'):
+        print("Looking for {} on {}".format(ticker, self.market_date))
         market_date_format = str(self.market_date)[:10]
 
         with open(self.DUMMY_DATA_PATH, 'r') as json_file:
