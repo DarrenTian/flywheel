@@ -3,7 +3,7 @@
 If you want to run locally, you do not need to config anything, 
 if you want to run with remote database, 
 you should pass a remote connect str env var along with the first cmd when you enter into the python shell, 
-for example: `DB_URL=mysql://root:123456@127.0.0.1:3306/flywheel pipenv run ipython`.
+for example: `FW_DB_URL=mysql://root:123456@127.0.0.1:3306/flywheel pipenv run ipython`.
 
 ## Get Data From Market
 
