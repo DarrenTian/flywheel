@@ -39,8 +39,11 @@ class BaseModel(Model):
         return ins
 
     @classmethod
-    def all(cls):
-        return list(cls.select())
+    def all(cls, *fields, **filters):
+        s = cls.select(*fields)
+        for field, value in filters.items():
+            s = s.where(getattr(cls, field) == value)
+        return list(s)
 
 
 class Stock(BaseModel):
@@ -48,9 +51,7 @@ class Stock(BaseModel):
     ticker = CharField(null=False, default='', index=True)
 
     class Meta:
-        indexes = (
-            (('market', 'ticker'), True),
-        )
+        indexes = ((('market', 'ticker'), True),)
 
     @classmethod
     def get_by_ticker(cls, ticker):
@@ -69,6 +70,4 @@ class StockPrice(BaseModel):
     stock_splits = IntegerField(null=False, default=0)
 
     class Meta:
-        indexes = (
-            (('stock_id', 'date'), True),
-        )
+        indexes = ((('stock_id', 'date'), True),)

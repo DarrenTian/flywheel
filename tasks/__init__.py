@@ -6,7 +6,7 @@ from celery import Celery
 from sentry_sdk.integrations.celery import CeleryIntegration
 
 from flywheel.settings import (TZ, REDIS_URI, SENTRY_DSN, ENV)
-from flywheel.market.yahoo import get_stock_history_prices
+from flywheel.gateway.yahoo import get_stock_history_prices
 from flywheel.models import StockPrice, Stock
 from flywheel.exceptions import UserError
 
