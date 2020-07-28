@@ -1,3 +1,5 @@
+import numpy as np
+
 def returns(prices):
     return prices.pct_change().fillna(0)
 
@@ -7,12 +9,18 @@ def max_drawdown(prices):
 def total_return(returns):
     return returns.sum()
 
+def sharp(returns, rf_rate, days = 252):
+    volatility = returns.std() * np.sqrt(days)
+    sharpe_ratio = (returns.mean() - rf_rate) / volatility
+    return sharpe_ratio
+
 def calculate_metrics(prices):
     metrics = {}
 
     returns = prices.pct_change().fillna(0)
     metrics['Total Return'] = total_return(returns)
     metrics['Max DrawDown'] = max_drawdown(prices)
+    metrics['Sharp Ratio'] = sharp(returns, rf_rate = 0.)
     # TODO: 
     #   Exposure
     #   CAGR

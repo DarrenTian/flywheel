@@ -34,6 +34,6 @@ def evaluate(strategy, start_date, end_date):
 
 if __name__ == "__main__":
     portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"INTC": 0.5, "GOOG": 0.5})
-    metrics = evaluate(portfolio_rebalance_strategy, datetime.date(2020, 1, 1), date.today())
+    metrics = evaluate(portfolio_rebalance_strategy, datetime.date(2020, 7, 1), date.today())
     for metric in metrics:
         print("{}:\n{}".format(metric, metrics[metric]))
