@@ -1,9 +1,11 @@
 import logging
 from datetime import datetime, timedelta
 
+import sentry_sdk
 from celery import Celery
+from sentry_sdk.integrations.celery import CeleryIntegration
 
-from flywheel.settings import TZ, REDIS_URI
+from flywheel.settings import (TZ, REDIS_URI, SENTRY_DSN, ENV)
 from flywheel.market.yahoo import get_stock_history_prices
 from flywheel.models import StockPrice, Stock
 from flywheel.exceptions import UserError
@@ -13,6 +15,9 @@ logging.basicConfig(level="INFO", format='%(asctime)-15s [%(levelname)s] [%(name
 logger = logging.getLogger(__name__)
 app = Celery('tasks', broker=REDIS_URI + '//', backend=REDIS_URI)
 app.conf.timezone = TZ
+
+if SENTRY_DSN:
+    sentry_sdk.init(SENTRY_DSN, environment=ENV, integrations=[CeleryIntegration()])
 
 
 @app.task
