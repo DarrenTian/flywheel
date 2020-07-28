@@ -33,7 +33,7 @@ services:
       - MYSQL_DATABASE=flywheel
       - MYSQL_ROOT_PASSWORD=123456
     ports:
-      - "3306:3306"
+      - "33060:3306"
     restart: always
 
   redis:
@@ -43,5 +43,5 @@ services:
     volumes:
       - /private/data/docker_volumes/redis:/data
     ports:
-      - "6379:6379"
+      - "63790:6379"
     restart: always
