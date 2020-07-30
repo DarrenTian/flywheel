@@ -5,6 +5,11 @@ if you want to run with remote database,
 you should pass a remote connect str env var along with the first cmd when you enter into the python shell, 
 for example: `FW_DB_URL=mysql://root:123456@127.0.0.1:3306/flywheel pipenv run ipython`.
 
+## Install
+```commandline
+$ pipenv install -d
+```
+
 ## Get Data From Market
 
 ### Run in Ipython
@@ -18,7 +23,12 @@ $ crawl_stock_history_data('GOOG') # crawl the GOOG history data, you can replac
 ```
 
 ### Run in Jupyter
-
+```commandline
+$ jupyter notebook
+```
+It will open up a localhosted browser.
+Check notebooks folder for examples.
+To be able to use the modules in flywheel,
 
 ## Query Data From Database
 

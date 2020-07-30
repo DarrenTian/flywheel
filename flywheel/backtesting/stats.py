@@ -1,11 +1,21 @@
 import numpy as np
 
-def returns(prices):
+def price_to_returns(prices):
     return prices.pct_change().fillna(0)
 
 def max_drawdown(prices):
     return (prices / prices.expanding(min_periods=0).max()).min() - 1
 
+def longest_drawdown_days(prices):
+
+    # draw_down_series = (prices / prices.expanding(min_periods=0).max()) - 1
+    # print(draw_down_series)
+    # print(draw_down_series.expanding(min_periods=0).apply(lambda list: sum(list<0)))
+    # print(draw_down_series.expanding(min_periods=0).apply(lambda list: sum(list<0)))
+
+    # return None
+    return None
+    
 def total_return(returns):
     return returns.sum()
 
@@ -17,16 +27,15 @@ def sharp(returns, rf_rate, days = 252):
 def calculate_metrics(prices):
     metrics = {}
 
-    returns = prices.pct_change().fillna(0)
+    returns = price_to_returns(prices)
     metrics['Total Return'] = total_return(returns)
     metrics['Max DrawDown'] = max_drawdown(prices)
+    # metrics['Longest DrawDown Days'] = longest_drawdown_days(prices)
     metrics['Sharp Ratio'] = sharp(returns, rf_rate = 0.)
     # TODO: 
     #   Exposure
     #   CAGR
-    #   Sharp Ratio
     #   Sortino
-    #   Longest DD Days
     #   Risk-free rate
     #   Volatility
     #   Annual Volatitiy
