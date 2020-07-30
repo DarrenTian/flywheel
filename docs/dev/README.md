@@ -103,3 +103,26 @@ tasks
 ├── __init__.py # all the celery tasks can be found in it
 └── cron.py # all the celery cron tasks can be found in it
 ```
+
+## Deploy
+
+First the remote server should have `docker` and `docker-compose` installed.
+
+### rsync way 
+
+You can deploy this project to remote server by `rsync`:
+
+```commandline
+$ rsync -r -v --exclude-from=./rsync.excludes . $remote_server:/srv/flywheel
+$ make build
+$ make docker-run
+```
+
+### docker way
+
+Also you can deploy this project to remote server by docker way:
+
+1. First you should config the `docker registry` (usually is a private registry) in your local machine and remote server.
+2. Build image locally and upload built image to the docker registry. 
+3. Upload the docker-compose file `docker-compose.yml` to the remote server working dir.
+4. Run this make cmd: `make docker-run` in your working dir.
