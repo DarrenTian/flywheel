@@ -12,3 +12,4 @@ Makefile
 /node_modules
 /static
 *.db
+__pycache__

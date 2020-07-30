@@ -1,0 +1,13 @@
+.venv
+dump.rdb
+__pycache__
+*.log
+*.pyc
+.idea
+.vscode
+.git
+static
+*.db
+.ipynb_checkpoints
+.pytest_cache
+:q!
