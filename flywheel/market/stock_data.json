@@ -27408,15 +27408,6 @@
         }
     },
     "GOOG": {
-        "2018-07-30": {
-            "Open": 1228.01,
-            "High": 1234.92,
-            "Low": 1211.47,
-            "Close": 1219.74,
-            "Volume": 1849900,
-            "Dividends": 0,
-            "Stock Splits": 0
-        },
         "2018-07-31": {
             "Open": 1220.01,
             "High": 1227.59,
@@ -30797,7 +30788,7 @@
             "High": 1456.0,
             "Low": 1432.47,
             "Close": 1452.56,
-            "Volume": 1576000,
+            "Volume": 1577400,
             "Dividends": 0,
             "Stock Splits": 0
         },
@@ -30815,7 +30806,7 @@
             "High": 1457.28,
             "Low": 1436.4,
             "Close": 1455.84,
-            "Volume": 1339400,
+            "Volume": 1335200,
             "Dividends": 0,
             "Stock Splits": 0
         },
@@ -31931,21 +31922,30 @@
             "High": 1526.48,
             "Low": 1497.66,
             "Close": 1500.34,
-            "Volume": 1701400,
+            "Volume": 1702200,
+            "Dividends": 0,
+            "Stock Splits": 0
+        },
+        "2020-07-29": {
+            "Open": 1506.32,
+            "High": 1531.25,
+            "Low": 1501.33,
+            "Close": 1522.02,
+            "Volume": 1106500,
+            "Dividends": 0,
+            "Stock Splits": 0
+        },
+        "2020-07-30": {
+            "Open": 1497.0,
+            "High": 1537.87,
+            "Low": 1492.22,
+            "Close": 1531.45,
+            "Volume": 1664800,
             "Dividends": 0,
             "Stock Splits": 0
         }
     },
     "INTC": {
-        "2018-07-30": {
-            "Open": 45.42,
-            "High": 45.76,
-            "Low": 44.28,
-            "Close": 45.48,
-            "Volume": 35696600,
-            "Dividends": 0.0,
-            "Stock Splits": 0
-        },
         "2018-07-31": {
             "Open": 46.0,
             "High": 46.42,
@@ -35326,7 +35326,7 @@
             "High": 66.87,
             "Low": 65.25,
             "Close": 66.6,
-            "Volume": 30890300,
+            "Volume": 30915400,
             "Dividends": 0.0,
             "Stock Splits": 0
         },
@@ -35344,7 +35344,7 @@
             "High": 65.8,
             "Low": 64.25,
             "Close": 65.77,
-            "Volume": 18522400,
+            "Volume": 18512800,
             "Dividends": 0.0,
             "Stock Splits": 0
         },
@@ -36460,7 +36460,25 @@
             "High": 50.23,
             "Low": 49.14,
             "Close": 49.24,
-            "Volume": 62215900,
+            "Volume": 62362600,
+            "Dividends": 0.0,
+            "Stock Splits": 0
+        },
+        "2020-07-29": {
+            "Open": 49.49,
+            "High": 49.5,
+            "Low": 47.9,
+            "Close": 48.07,
+            "Volume": 60500800,
+            "Dividends": 0.0,
+            "Stock Splits": 0
+        },
+        "2020-07-30": {
+            "Open": 47.83,
+            "High": 48.5,
+            "Low": 47.59,
+            "Close": 47.99,
+            "Volume": 39616800,
             "Dividends": 0.0,
             "Stock Splits": 0
         }

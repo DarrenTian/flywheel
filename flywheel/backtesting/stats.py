@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 def price_to_returns(prices):
     return prices.pct_change().fillna(0)
@@ -6,15 +7,34 @@ def price_to_returns(prices):
 def max_drawdown(prices):
     return (prices / prices.expanding(min_periods=0).max()).min() - 1
 
+def drawdowns(prices):
+    drawdown_series = prices / prices.expanding(min_periods=0).max() - 1
+    print(drawdown_series)
+    # drawdown series is either 0 or negative
+    in_drawdown = drawdown_series < 0
+    # extract drawdown start dates
+    starts = (~in_drawdown).shift(1) & in_drawdown
+    starts = list(starts[starts].index)
+    # extract drawdown end dates
+    ends = (~in_drawdown).shift(-1) & in_drawdown
+    ends = list(ends[ends].index)
+    # theoretically series won't start in drawdown
+    # when series end in drawdown, add last date
+    if ends and starts[-1] > ends[-1]:
+        ends.append(drawdown_series.index[-1])
+    drawdowns_summary = []
+    for drawdown_index, _ in enumerate(starts):
+        start = starts[drawdown_index]
+        end = ends[drawdown_index]
+        drawdown = drawdown_series[start:end+1]    
+        print(drawdown)
+        drawdowns_summary.append((start, drawdown.idxmin(), end, end-start+1))
+    df = pd.DataFrame(data=drawdowns_summary,
+                      columns=('start', 'valley', 'end', 'days'))
+    return df
+
 def longest_drawdown_days(prices):
-
-    # draw_down_series = (prices / prices.expanding(min_periods=0).max()) - 1
-    # print(draw_down_series)
-    # print(draw_down_series.expanding(min_periods=0).apply(lambda list: sum(list<0)))
-    # print(draw_down_series.expanding(min_periods=0).apply(lambda list: sum(list<0)))
-
-    # return None
-    return None
+    return drawdowns(prices)['days'].max()
     
 def total_return(returns):
     return returns.sum()

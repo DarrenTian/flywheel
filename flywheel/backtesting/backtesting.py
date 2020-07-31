@@ -33,7 +33,12 @@ def evaluate(strategy, start_date, end_date):
     return metrics
 
 if __name__ == "__main__":
-    portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"INTC": 0.5, "GOOG": 0.5})
-    metrics = evaluate(portfolio_rebalance_strategy, datetime.date(2020, 7, 1), date.today())
-    for metric in metrics:
-        print("{}:\n{}".format(metric, metrics[metric]))
+    # portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"INTC": 0.5, "GOOG": 0.5})
+    # prices = backtesting(portfolio_rebalance_strategy, datetime.date(2020, 7, 1), date.today())
+    prices = pd.Series([100, 101, 99, 98, 97, 100, 105, 104, 103, 105, 106, 105, 104])
+    print(stats.drawdowns(prices))
+    print(stats.longest_drawdown_days(prices))
+
+    # metrics = evaluate(portfolio_rebalance_strategy, datetime.date(2020, 7, 1), date.today())
+    # for metric in metrics:
+    #     print("{}:\n{}".format(metric, metrics[metric]))
