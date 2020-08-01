@@ -1,5 +1,7 @@
 from collections import defaultdict
 
+import flywheel.exceptions
+
 class Account:
   def __init__(self, name):
     self.name = name
@@ -11,7 +13,7 @@ class Account:
   def add_cash(self, amount):
     self.cash += amount
   
-  # This is a hack to share market reference, ideally it should be inejcted based on context
+  # This is a hack to share market reference, ideally it should be injected based on context
   def set_market(self, market):
     self.market = market
   
@@ -20,7 +22,9 @@ class Account:
   
   # If without specific date, we get operate on the latest market data.
   def trade(self):
-    if self.market and not self.market.is_open():
+    if self.market is None:
+      raise flywheel.exceptions.UserError("market is not set")
+    if not self.market.is_open():
       return
     operations = self.strategy.get_operations(self)
     for operation in operations:
