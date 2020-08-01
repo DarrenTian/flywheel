@@ -1,13 +1,17 @@
 import numpy as np
 import pandas as pd
 
+def risk_free_rate():
+    # TODO: Research how to calculate dynamic risk-free rate
+    return 0.
+
 def price_to_returns(prices):
     return prices.pct_change().fillna(0)
 
 def max_drawdown(prices):
     return (prices / prices.expanding(min_periods=0).max()).min() - 1
 
-def drawdowns(prices):
+def price_to_drawdowns(prices):
     drawdown_series = prices / prices.expanding(min_periods=0).max() - 1
     print(drawdown_series)
     # drawdown series is either 0 or negative
@@ -33,14 +37,21 @@ def drawdowns(prices):
                       columns=('start', 'valley', 'end', 'days'))
     return df
 
-def longest_drawdown_days(prices):
-    return drawdowns(prices)['days'].max()
+def longest_drawdown_days(drawdowns):
+    return drawdowns['days'].max()
     
 def total_return(returns):
     return returns.sum()
 
-def sharp(returns, rf_rate, days = 252):
-    volatility = returns.std() * np.sqrt(days)
+def returns_to_volatility(returns, annualize = False):
+    volatility = returns.std()
+    if not annualize:
+        return volatility
+    else:
+        return volatility * np.sqrt(252) # 252 trading days in a year
+
+def sharp(returns, rf_rate):
+    volatility = returns_to_volatility(returns, annualize = True)
     sharpe_ratio = (returns.mean() - rf_rate) / volatility
     return sharpe_ratio
 
@@ -50,8 +61,13 @@ def calculate_metrics(prices):
     returns = price_to_returns(prices)
     metrics['Total Return'] = total_return(returns)
     metrics['Max DrawDown'] = max_drawdown(prices)
-    # metrics['Longest DrawDown Days'] = longest_drawdown_days(prices)
-    metrics['Sharp Ratio'] = sharp(returns, rf_rate = 0.)
+    metrics['Volatility'] = returns_to_volatility(returns, annualize = False)
+    metrics['Annual Volatility'] = returns_to_volatility(returns, annualize = True)
+    metrics['Sharp Ratio'] = sharp(returns, rf_rate = risk_free_rate())
+    # Draw down reldated metrics
+    drawdowns = price_to_drawdowns(prices)
+    metrics['Longest DrawDown Days'] = longest_drawdown_days(drawdowns)
+
     # TODO: 
     #   Exposure
     #   CAGR
