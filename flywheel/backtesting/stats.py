@@ -23,14 +23,14 @@ def price_to_drawdowns(prices):
     ends = list(ends[ends].index)
     # theoretically series won't start in drawdown
     # when series end in drawdown, add last date
-    if ends and starts[-1] > ends[-1]:
+    if not ends or (ends and starts[-1] > ends[-1]):
         ends.append(drawdown_series.index[-1])
     drawdowns_summary = []
     for drawdown_index, _ in enumerate(starts):
         start = starts[drawdown_index]
         end = ends[drawdown_index]
-        drawdown = drawdown_series[start:end+1]    
-        drawdowns_summary.append((start, drawdown.idxmin(), end, end-start+1))
+        drawdown = drawdown_series[start:end]    
+        drawdowns_summary.append((start, drawdown.idxmin(), end, drawdown.count())) # We are using trading days
     df = pd.DataFrame(data=drawdowns_summary,
                       columns=('start', 'valley', 'end', 'days'))
     return df

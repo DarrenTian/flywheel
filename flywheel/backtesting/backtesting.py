@@ -15,7 +15,7 @@ def backtesting(strategy, start_date, end_date):
     account.add_cash(10000)
     account.set_market(market)
 
-    account_snapshot = []
+    prices = {}
     day_range = (end_date - start_date).days
     for day in range(day_range):
         date = start_date + timedelta(days=day)
@@ -23,9 +23,8 @@ def backtesting(strategy, start_date, end_date):
         if market.is_open():
             account.trade()
             account.show()
-            account_snapshot.append(account.equity())
-    prices = pd.Series(account_snapshot)
-    return prices
+            prices[date] = account.equity()
+    return pd.Series(prices)
 
 def evaluate(strategy, start_date, end_date):
     prices  = backtesting(strategy, start_date, end_date)    
