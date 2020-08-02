@@ -78,25 +78,24 @@ def calculate_metrics(prices):
     metrics['Average DrawDown'] = average_drawdown(drawdowns)
     metrics['Average DrawDown Days'] = average_drawdown_days(drawdowns)
     metrics['Recovery Factor'] = abs(metrics['Total Return'] / metrics['Max DrawDown'])
+    #   Expected Daily/Monthly/Yearly Return
     #   3M/6M/YTD/1Y/3Y(anl)/5Y(anl)/10Y(anl)/all-time(anl)
     #   Best/Worst Day/Month/Year
     #   Avg drawdown
     #   Avg drawdown days
     #   Win days/month/quarter/year %
     #   Worst 10 drawdowns
+    #   EoY return by year, vs. benchmark
 
     # TODO: 
+    #   Risk-free rate
     #   Exposure
     #   CAGR
     #   Sortino
-    #   Risk-free rate
-    #   Volatility
-    #   Annual Volatitiy
     #   R2
     #   Calmar
     #   Skew
     #   Kurtosis
-    #   Expected Daily/Monthly/Yearly Return
     #   Kelly Criterion
     #   Risk of Ruin
     #   Daily Value-at-Risk
@@ -110,8 +109,6 @@ def calculate_metrics(prices):
     #   Outlier Loss Ratio
     #   MTD
     #   Beta/Alpha
-    #   EoY return by year, vs. benchmark
-
     return metrics
 
 
