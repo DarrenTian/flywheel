@@ -8,9 +8,6 @@ def risk_free_rate():
 def price_to_returns(prices):
     return prices.pct_change().fillna(0)
 
-def max_drawdown(prices):
-    return (prices / prices.expanding(min_periods=0).max()).min() - 1
-
 def price_to_drawdowns(prices):
     drawdown_series = prices / prices.expanding(min_periods=0).max() - 1
     # drawdown series is either 0 or negative
@@ -30,16 +27,29 @@ def price_to_drawdowns(prices):
         start = starts[drawdown_index]
         end = ends[drawdown_index]
         drawdown = drawdown_series[start:end]    
-        drawdowns_summary.append((start, drawdown.idxmin(), end, drawdown.count())) # We are using trading days
+        drawdowns_summary.append((start, drawdown.idxmin(), end, drawdown.count(), drawdown.min())) # We are using trading days
     df = pd.DataFrame(data=drawdowns_summary,
-                      columns=('start', 'valley', 'end', 'days'))
+                      columns=('start', 'valley', 'end', 'days', 'max_drawdown'))
     return df
+
+def max_drawdown(drawdowns):
+    return drawdowns['max_drawdown'].min()
+    # return (prices / prices.expanding(min_periods=0).max()).min() - 1
 
 def longest_drawdown_days(drawdowns):
     return drawdowns['days'].max()
+
+def average_drawdown(drawdowns):
+    return drawdowns['max_drawdown'].mean()
+
+def average_drawdown_days(drawdowns):
+    return drawdowns['days'].mean()
+
+def recover_factor():
+    return None
     
 def total_return(returns):
-    return (returns + 1).product() - 1
+    return returns.add(1).prod() - 1
 
 def returns_to_volatility(returns, annualize = False):
     volatility = returns.std()
@@ -58,13 +68,16 @@ def calculate_metrics(prices):
 
     returns = price_to_returns(prices)
     metrics['Total Return'] = total_return(returns)
-    metrics['Max DrawDown'] = max_drawdown(prices)
     metrics['Volatility'] = returns_to_volatility(returns, annualize = False)
     metrics['Annual Volatility'] = returns_to_volatility(returns, annualize = True)
     metrics['Sharp Ratio'] = sharp(returns, rf_rate = risk_free_rate())
     # Draw down reldated metrics
     drawdowns = price_to_drawdowns(prices)
+    metrics['Max DrawDown'] = max_drawdown(drawdowns)
     metrics['Longest DrawDown Days'] = longest_drawdown_days(drawdowns)
+    metrics['Average DrawDown'] = average_drawdown(drawdowns)
+    metrics['Average DrawDown Days'] = average_drawdown_days(drawdowns)
+    metrics['Recovery Factor'] = abs(metrics['Total Return'] / metrics['Max DrawDown'])
     #   3M/6M/YTD/1Y/3Y(anl)/5Y(anl)/10Y(anl)/all-time(anl)
     #   Best/Worst Day/Month/Year
     #   Avg drawdown
