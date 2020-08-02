@@ -67,6 +67,12 @@ def calculate_metrics(prices):
     # Draw down reldated metrics
     drawdowns = price_to_drawdowns(prices)
     metrics['Longest DrawDown Days'] = longest_drawdown_days(drawdowns)
+    #   3M/6M/YTD/1Y/3Y(anl)/5Y(anl)/10Y(anl)/all-time(anl)
+    #   Best/Worst Day/Month/Year
+    #   Avg drawdown
+    #   Avg drawdown days
+    #   Win days/month/quarter/year %
+    #   Worst 10 drawdowns
 
     # TODO: 
     #   Exposure
@@ -92,14 +98,8 @@ def calculate_metrics(prices):
     #   Outlier Win Ratio
     #   Outlier Loss Ratio
     #   MTD
-    #   3M/6M/YTD/1Y/3Y(anl)/5Y(anl)/10Y(anl)/all-time(anl)
-    #   Best/Worst Day/Month/Year
-    #   Avg drawdown
-    #   Avg drawdown days
-    #   Win days/month/quarter/year %
     #   Beta/Alpha
     #   EoY return by year, vs. benchmark
-    #   Worst 10 drawdowns
 
     return metrics
 

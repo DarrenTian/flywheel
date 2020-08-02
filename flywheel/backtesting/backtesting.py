@@ -32,6 +32,9 @@ def evaluate(strategy, start_date, end_date):
     metrics = stats.calculate_metrics(prices)
     return metrics
 
+# submit issues
+# def evaluate(stratgey, training_period=(), validation_period="last month")
+
 if __name__ == "__main__":
     portfolio_rebalance_strategy = PortfolioRebalanceStrategy({"INTC": 0.5, "GOOG": 0.5})
     #prices = backtesting(portfolio_rebalance_strategy, datetime.date(2020, 7, 1), date.today())

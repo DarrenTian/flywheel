@@ -4,7 +4,6 @@ from typing import List
 from flywheel.exceptions import UserError
 from flywheel.models import Stock, StockPrice
 
-
 def get_stock_prices(
         ticker: str,
         start: datetime.date = (datetime.now() - timedelta(weeks=1)).date(),
