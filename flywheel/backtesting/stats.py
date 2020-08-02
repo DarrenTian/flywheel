@@ -13,7 +13,6 @@ def max_drawdown(prices):
 
 def price_to_drawdowns(prices):
     drawdown_series = prices / prices.expanding(min_periods=0).max() - 1
-    print(drawdown_series)
     # drawdown series is either 0 or negative
     in_drawdown = drawdown_series < 0
     # extract drawdown start dates
@@ -31,7 +30,6 @@ def price_to_drawdowns(prices):
         start = starts[drawdown_index]
         end = ends[drawdown_index]
         drawdown = drawdown_series[start:end+1]    
-        print(drawdown)
         drawdowns_summary.append((start, drawdown.idxmin(), end, end-start+1))
     df = pd.DataFrame(data=drawdowns_summary,
                       columns=('start', 'valley', 'end', 'days'))
@@ -41,7 +39,7 @@ def longest_drawdown_days(drawdowns):
     return drawdowns['days'].max()
     
 def total_return(returns):
-    return returns.sum()
+    return (returns + 1).product() - 1
 
 def returns_to_volatility(returns, annualize = False):
     volatility = returns.std()
