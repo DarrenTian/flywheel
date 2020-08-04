@@ -46,9 +46,6 @@ def average_drawdown(drawdowns):
 
 def average_drawdown_days(drawdowns):
     return drawdowns['days'].mean()
-
-def recover_factor():
-    return None
     
 def total_return(returns):
     return returns.add(1).prod() - 1
@@ -86,7 +83,7 @@ def calculate_metrics(prices):
     metrics['Longest DrawDown Days'] = longest_drawdown_days(drawdowns)
     metrics['Average DrawDown'] = average_drawdown(drawdowns)
     metrics['Average DrawDown Days'] = average_drawdown_days(drawdowns)
-    metrics['Recovery Factor'] = abs(metrics['Total Return'] / metrics['Max DrawDown'])
+    metrics['Recovery Factor'] = metrics['Total Return'] / abs(metrics['Max DrawDown'])
     # MTD/YTD/3M/6M/1Y/3Y(anl)/5Y(anl)/10Y(anl)/all-time(anl)
     today = date.today()
     metrics['MTD %'] = total_return(returns[returns.index >= date(today.year, today.month, 1)])
@@ -101,18 +98,13 @@ def calculate_metrics(prices):
     metrics['10Y (ann.) %'] = cagr(returns[returns.index >= date(today.year - 10, today.month, today.day)])
     metrics['All-time (ann.) %'] = cagr(returns)
     #   Best/Worst Day/Month/Year
-    #   Avg drawdown
-    #   Avg drawdown days
     #   Win days/month/quarter/year %
     #   Worst 10 drawdowns
     #   EoY return by year, vs. benchmark
-
     #  Expected Daily/Monthly/Yearly Return
 
     # TODO: 
-    #   Risk-free rate
     #   Exposure
-    #   CAGR
     #   Sortino
     #   R2
     #   Calmar
@@ -129,7 +121,6 @@ def calculate_metrics(prices):
     #   Tail Ratio
     #   Outlier Win Ratio
     #   Outlier Loss Ratio
-    #   MTD
     #   Beta/Alpha
     return metrics
 
