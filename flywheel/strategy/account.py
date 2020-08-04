@@ -52,6 +52,7 @@ class Account:
     return all_equity
   
   def show(self):
-    print("Cash: {}".format(self.cash))
-    print(", ".join(map(lambda holding:"{}: {}".format(holding, self.holdings[holding]),self.holdings)))
-    print("Equity: {}".format(self.equity()))
+    print(self.market.market_date, end=": ")
+    print("Cash: {:.2f}".format(self.cash), end=", ")
+    print(", ".join(map(lambda holding:"{}: {:.2f}".format(holding, self.holdings[holding]),self.holdings)), end=", ")
+    print("Equity: {:.2f}".format(self.equity()))

@@ -65,7 +65,8 @@ def sharp(returns, rf_rate):
 # Compound Annual Growth Rate
 def cagr(returns):
     years = (returns.index[-1] - returns.index[0]).days / 365.0
-    # If shorter than 1 year, this may return nan
+    # If shorter than 1 year, return nan
+    if years < 1 : return float("nan")
     cagr = total_return(returns) ** (1.0/years) - 1
     return cagr
 

@@ -39,7 +39,7 @@ if __name__ == "__main__":
     #prices = backtesting(portfolio_rebalance_strategy, datetime.date(2020, 7, 1), date.today())
     metrics = evaluate(portfolio_rebalance_strategy, datetime.date(2020, 7, 1), date.today())
     for metric in metrics:
-        print("{}:\n{}".format(metric, metrics[metric]))
+        print("{}: {:.2f}".format(metric, metrics[metric]))
     
     # prices = pd.Series([100, 101, 99, 98, 97, 100, 105, 104, 103, 105, 106, 105, 104])
     # print(stats.drawdowns(prices))
