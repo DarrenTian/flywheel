@@ -31,9 +31,9 @@ class Account:
       self.operate(operation)
   
   def operate(self, operation):
-    if operation.type == 'SELL':
-      self.liquidate(operation.ticker, operation.position)
-    if operation.type == 'BUY':
+    if operation.position < 0:
+      self.liquidate(operation.ticker, abs(operation.position))
+    if operation.position > 0:
       self.purchase(operation.ticker, operation.position)
 
   def liquidate(self, ticker, position):

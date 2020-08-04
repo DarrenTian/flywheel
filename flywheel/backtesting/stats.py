@@ -77,7 +77,7 @@ def calculate_metrics(prices):
     metrics['Volatility'] = returns_to_volatility(returns, annualize = False)
     metrics['Annual Volatility'] = returns_to_volatility(returns, annualize = True)
     metrics['Sharp Ratio'] = sharp(returns, rf_rate = risk_free_rate())
-    # Draw down reldated metrics
+    # Draw down related metrics
     drawdowns = price_to_drawdowns(prices)
     metrics['Max DrawDown'] = max_drawdown(drawdowns)
     metrics['Longest DrawDown Days'] = longest_drawdown_days(drawdowns)

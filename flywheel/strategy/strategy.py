@@ -1,9 +1,8 @@
 import math
 
 class Operation:
-    def __init__(self, ticker, type, position):
+    def __init__(self, ticker, position):
         self.ticker = ticker
-        self.type = type
         self.position = position
 
 class Strategy:
@@ -34,8 +33,6 @@ class PortfolioRebalanceStrategy(Strategy):
         for ticker in self.portfolio_dist:
             target_holdings[ticker] = math.floor(all_equity * self.portfolio_dist[ticker] / account.market.get_price(ticker))
         for ticker in target_holdings:
-            if target_holdings[ticker] < account.holdings[ticker]:
-                operations.append(Operation(ticker, 'SELL', account.holdings[ticker]-target_holdings[ticker]))
-            if target_holdings[ticker] > account.holdings[ticker]:
-                operations.append(Operation(ticker, 'BUY', target_holdings[ticker]-account.holdings[ticker]))
+            if target_holdings[ticker] != account.holdings[ticker]:
+                operations.append(Operation(ticker, target_holdings[ticker]-account.holdings[ticker]))
         return operations
