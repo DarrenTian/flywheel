@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 
+from datetime import date, timedelta
+
 def risk_free_rate():
     # TODO: Research how to calculate dynamic risk-free rate
     return 0.
@@ -63,6 +65,13 @@ def sharp(returns, rf_rate):
     sharpe_ratio = (returns.mean() - rf_rate) / volatility
     return sharpe_ratio
 
+# Compound Annual Growth Rate
+def cagr(returns):
+    years = (returns.index[-1] - returns.index[0]).days / 365.0
+    # If shorter than 1 year, this may return nan
+    cagr = total_return(returns) ** (1.0/years) - 1
+    return cagr
+
 def calculate_metrics(prices):
     metrics = {}
 
@@ -78,14 +87,27 @@ def calculate_metrics(prices):
     metrics['Average DrawDown'] = average_drawdown(drawdowns)
     metrics['Average DrawDown Days'] = average_drawdown_days(drawdowns)
     metrics['Recovery Factor'] = abs(metrics['Total Return'] / metrics['Max DrawDown'])
-    #   Expected Daily/Monthly/Yearly Return
-    #   3M/6M/YTD/1Y/3Y(anl)/5Y(anl)/10Y(anl)/all-time(anl)
+    # MTD/YTD/3M/6M/1Y/3Y(anl)/5Y(anl)/10Y(anl)/all-time(anl)
+    today = date.today()
+    metrics['MTD %'] = total_return(returns[returns.index >= date(today.year, today.month, 1)])
+    metrics['YTD %'] = total_return(returns[returns.index >= date(today.year, 1, 1)])
+    three_months_ago = today - timedelta(days=3*30)
+    metrics['3M %'] = total_return(returns[returns.index >= three_months_ago])
+    six_months_ago = today - timedelta(days=6*30)
+    metrics['6M %'] = total_return(returns[returns.index >= six_months_ago])
+    metrics['1Y %'] = total_return(returns[returns.index >= date(today.year - 1, today.month, today.day)])
+    metrics['3Y (ann.) %'] = cagr(returns[returns.index >= date(today.year - 3, today.month, today.day)])
+    metrics['5Y (ann.) %'] = cagr(returns[returns.index >= date(today.year - 5, today.month, today.day)])
+    metrics['10Y (ann.) %'] = cagr(returns[returns.index >= date(today.year - 10, today.month, today.day)])
+    metrics['All-time (ann.) %'] = cagr(returns)
     #   Best/Worst Day/Month/Year
     #   Avg drawdown
     #   Avg drawdown days
     #   Win days/month/quarter/year %
     #   Worst 10 drawdowns
     #   EoY return by year, vs. benchmark
+
+    #  Expected Daily/Monthly/Yearly Return
 
     # TODO: 
     #   Risk-free rate
