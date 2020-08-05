@@ -1,0 +1,27 @@
+# market_data structure 
+#	ticker
+#		date: price_info
+# price_info
+#	"Open", "High", "Low", "Close", "Volume", "Dividends", "Stock Splits"
+
+# open_price_{t}/close_price_{t-1}, [0, +inf)
+# return {
+#	ticker: {
+#		date: open_inconsistancy
+#		}
+#	}
+def open_inconsistancy(market_data):
+	open_inconsistancy = {}
+	for ticker in market_data:
+		ticker_open_inconsistancy = {}
+		price_data = market_data[ticker]
+		pre_price = 0.0
+		for date in price_data:
+			price = price_data[date]
+			if (pre_price == 0):
+				ticker_open_inconsistancy[date] = 1
+			else:
+				ticker_open_inconsistancy[date] = price / pre_price
+			pre_price = price
+		open_inconsistancy[ticker] = ticker_open_inconsistancy
+	return open_inconsistancy

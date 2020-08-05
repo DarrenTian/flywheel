@@ -119,7 +119,7 @@ class Market:
         self.interval = interval
 
     def get_price(self, ticker='MSFT'):
-        print("Looking for {} on {}".format(ticker, self.market_date))
+        # print("Looking for {} on {}".format(ticker, self.market_date))
         market_date_format = str(self.market_date)[:10]
 
         with open(self.DUMMY_DATA_PATH, 'r') as json_file:

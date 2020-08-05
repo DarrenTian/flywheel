@@ -42,7 +42,7 @@ def get_ema(stock_data, mod):
 def get_ema_dif(ema_dict, day_range_alpha, day_range_beta):
     ema_tuples = ema_dict.items()
     ema_dif = {}
-    if (len(ema) < day_range_beta):
+    if (len(ema_tuples) < day_range_beta):
         return ema_dif
     ema_slow = 0
     ema_fast = 0
@@ -68,10 +68,27 @@ def get_ema_dif(ema_dict, day_range_alpha, day_range_beta):
             ema_dif[date] = ema_fast - ema_slow
         else:
             ema_slow = culmulative_range_average(ema_slow, N_slow, ema, 0)
-    return ema_slow
+    return ema_dif
 
-
-    
+def get_macd(ema_dif, day_range):
+    macd = {}
+    ema_tuples = ema_dif.items()
+    if (len(ema_tuples) < day_range):
+        return macd
+    N = 0
+    head = 0
+    ema_culmulative = 0
+    for i in range(len(ema_tuples)):
+        N += 1
+        date, ema = ema_tuples[i]
+        if (N >= day_range):
+            N = day_range
+            ema_culmulative = culmulative_range_average(ema_culmulative, N, ema, ema_tuples[head][1])
+            head += 1
+            macd[date] = ema_culmulative
+        else:
+            ema_culmulative = culmulative_range_average(ema_culmulative, N, ema, 0)
+    return macd    
 
 def culmulative_range_average(pre_average, N, new_value, old_value):
     return pre_average + (new_value - old_value) / N

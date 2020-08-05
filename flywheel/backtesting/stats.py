@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 
+from datetime import date, timedelta
+
 def risk_free_rate():
     # TODO: Research how to calculate dynamic risk-free rate
     return 0.
@@ -44,9 +46,6 @@ def average_drawdown(drawdowns):
 
 def average_drawdown_days(drawdowns):
     return drawdowns['days'].mean()
-
-def recover_factor():
-    return None
     
 def total_return(returns):
     return returns.add(1).prod() - 1
@@ -63,6 +62,14 @@ def sharp(returns, rf_rate):
     sharpe_ratio = (returns.mean() - rf_rate) / volatility
     return sharpe_ratio
 
+# Compound Annual Growth Rate
+def cagr(returns):
+    years = (returns.index[-1] - returns.index[0]).days / 365.0
+    # If shorter than 1 year, return nan
+    if years < 1 : return float("nan")
+    cagr = total_return(returns) ** (1.0/years) - 1
+    return cagr
+
 def calculate_metrics(prices):
     metrics = {}
 
@@ -71,32 +78,39 @@ def calculate_metrics(prices):
     metrics['Volatility'] = returns_to_volatility(returns, annualize = False)
     metrics['Annual Volatility'] = returns_to_volatility(returns, annualize = True)
     metrics['Sharp Ratio'] = sharp(returns, rf_rate = risk_free_rate())
-    # Draw down reldated metrics
+    # Draw down related metrics
     drawdowns = price_to_drawdowns(prices)
     metrics['Max DrawDown'] = max_drawdown(drawdowns)
     metrics['Longest DrawDown Days'] = longest_drawdown_days(drawdowns)
     metrics['Average DrawDown'] = average_drawdown(drawdowns)
     metrics['Average DrawDown Days'] = average_drawdown_days(drawdowns)
-    metrics['Recovery Factor'] = abs(metrics['Total Return'] / metrics['Max DrawDown'])
-    #   3M/6M/YTD/1Y/3Y(anl)/5Y(anl)/10Y(anl)/all-time(anl)
+    metrics['Recovery Factor'] = metrics['Total Return'] / abs(metrics['Max DrawDown'])
+    # MTD/YTD/3M/6M/1Y/3Y(anl)/5Y(anl)/10Y(anl)/all-time(anl)
+    today = date.today()
+    metrics['MTD %'] = total_return(returns[returns.index >= date(today.year, today.month, 1)])
+    metrics['YTD %'] = total_return(returns[returns.index >= date(today.year, 1, 1)])
+    three_months_ago = today - timedelta(days=3*30)
+    metrics['3M %'] = total_return(returns[returns.index >= three_months_ago])
+    six_months_ago = today - timedelta(days=6*30)
+    metrics['6M %'] = total_return(returns[returns.index >= six_months_ago])
+    metrics['1Y %'] = total_return(returns[returns.index >= date(today.year - 1, today.month, today.day)])
+    metrics['3Y (ann.) %'] = cagr(returns[returns.index >= date(today.year - 3, today.month, today.day)])
+    metrics['5Y (ann.) %'] = cagr(returns[returns.index >= date(today.year - 5, today.month, today.day)])
+    metrics['10Y (ann.) %'] = cagr(returns[returns.index >= date(today.year - 10, today.month, today.day)])
+    metrics['All-time (ann.) %'] = cagr(returns)
     #   Best/Worst Day/Month/Year
-    #   Avg drawdown
-    #   Avg drawdown days
     #   Win days/month/quarter/year %
     #   Worst 10 drawdowns
+    #   EoY return by year, vs. benchmark
+    #  Expected Daily/Monthly/Yearly Return
 
     # TODO: 
     #   Exposure
-    #   CAGR
     #   Sortino
-    #   Risk-free rate
-    #   Volatility
-    #   Annual Volatitiy
     #   R2
     #   Calmar
     #   Skew
     #   Kurtosis
-    #   Expected Daily/Monthly/Yearly Return
     #   Kelly Criterion
     #   Risk of Ruin
     #   Daily Value-at-Risk
@@ -108,10 +122,7 @@ def calculate_metrics(prices):
     #   Tail Ratio
     #   Outlier Win Ratio
     #   Outlier Loss Ratio
-    #   MTD
     #   Beta/Alpha
-    #   EoY return by year, vs. benchmark
-
     return metrics
 
 
