@@ -22,7 +22,8 @@ def drop_all_tables():
 
 def init_data():
     for stock in STOCK_LIST:
-        Stock.create(ticker=stock, market=Market.NASDAQ)
+        if Stock.get_by_ticker(ticker=stock) is None:
+            Stock.create(ticker=stock, market=Market.NASDAQ)
 
 
 def init():
