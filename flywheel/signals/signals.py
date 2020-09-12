@@ -18,10 +18,21 @@ def process_market_data(market_data):
     flag = True
     for ticker in market_data:
         ema = get_ema(market_data[ticker], "Close")
-        print(ema)
+        #print(ema)
         if flag:
-            lineplot(ema.keys(), ema.values())
+            lineplot(format_date_to_float(ema.keys()), ema.values())
             flag = False
+
+def format_date_to_float(dates):
+    formatted_dates = []
+    for date in dates:
+        float_date = 0.0
+        for c in date:
+            c = c.encode('ascii','ignore')
+            if (c >= '0' and c <='9'):
+                float_date = float_date * 10 + int(c)
+        formatted_dates.append(float_date)
+    return formatted_dates
 
 # return dict{zip(date, ema)}        
 def get_ema(stock_data, mod):
@@ -94,6 +105,8 @@ def culmulative_range_average(pre_average, N, new_value, old_value):
     return pre_average + (new_value - old_value) / N
 
 def lineplot(x_data, y_data, x_label="", y_label="", title=""):
+    #print(x_data)
+    #print(y_data)
     _, ax = plt.subplots()
 
     ax.plot(x_data, y_data, lw = 2, color = '#539caf', alpha = 1)
@@ -101,6 +114,7 @@ def lineplot(x_data, y_data, x_label="", y_label="", title=""):
     ax.set_title(title)
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
+    plt.show()
 
 def testplot():
     plt.subplots(1, 1)
