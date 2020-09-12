@@ -5,18 +5,20 @@ from flywheel.market.db import db
 
 # A factory to generate factor class.
 # Please add [factor_name, factor_class] in the factor_list when you implement a new factor.
+# E.g.
+# factory = factor_factory()
+# volume_factor = factory.get_factor('volume')
 class factor_factory:
 
-    def __init__(self, factor_name):
+    def __init__(self):
         self.db = db()
-        self.factor_name = factor_name
         self.factor_list = {}
 
-    def get_factor(self):
-        if self.factor_name in self.factor_list:
-            factor =  self.factor_list[self.factor_name]
-            factor.set_database(self.db)
-            return factor
+    def get_factor(self, factor_name):
+        if factor_name in self.factor_list:
+            factor_instance = self.factor_list[factor_name]
+            factor_instance.set_database(self.db)
+            return factor_instance
         else:
             raise ValueError('Cannot find this factor. Please use the correct factor name or create a type of factor class')
 
