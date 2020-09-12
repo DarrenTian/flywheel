@@ -2,6 +2,7 @@ import json
 import matplotlib.pyplot as plt
 import os
 import sys
+import imp
 
 from datetime import date
 
@@ -20,7 +21,8 @@ def process_market_data(market_data):
         ema = get_ema(market_data[ticker], "Close")
         #print(ema)
         if flag:
-            lineplot(format_date_to_float(ema.keys()), ema.values())
+            imp.load_source('lineplot', '../utils/matplot.py').lineplot(
+                format_date_to_float(ema.keys()), ema.values())
             flag = False
 
 def format_date_to_float(dates):
@@ -103,18 +105,6 @@ def get_macd(ema_dif, day_range):
 
 def culmulative_range_average(pre_average, N, new_value, old_value):
     return pre_average + (new_value - old_value) / N
-
-def lineplot(x_data, y_data, x_label="", y_label="", title=""):
-    #print(x_data)
-    #print(y_data)
-    _, ax = plt.subplots()
-
-    ax.plot(x_data, y_data, lw = 2, color = '#539caf', alpha = 1)
-
-    ax.set_title(title)
-    ax.set_xlabel(x_label)
-    ax.set_ylabel(y_label)
-    plt.show()
 
 def testplot():
     plt.subplots(1, 1)
