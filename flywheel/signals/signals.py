@@ -19,15 +19,20 @@ def get_price():
 def process_market_data(market_data):
     flag = True
     for ticker in market_data:
-        ema = get_ema(format_date_for_market_data(market_data[ticker]), "Close")
-        ema_dif = get_ema_dif(ema, 2, 4)
-        macd = get_macd(ema_dif, 3)
+        formatted_data = format_date_for_market_data(market_data[ticker])
+        print(formatted_data)
+        ema = get_ema(formatted_data, "Close")
+        ema_dif = get_ema_dif(ema, 7, 14)
+        macd = get_macd(ema_dif, 9)
         data = []
+        original_data = []
+        for data_daily in formatted_data.values():
+            original_data.append(data_daily["Close"])
+        data.append(original_data)
         data.append(ema.values())
         data.append(ema_dif.values())
         data.append(macd.values())
-        print(data)
-        #print(ema)
+        #print(data)
         if flag:
             imp.load_source('lineplot', '../utils/matplot.py').lineplot(
                 ema.keys(), data)
@@ -40,7 +45,7 @@ def format_date_for_market_data(data):
         delta = datetime.strptime(data_record[0], date_format) - datetime.strptime('2000-01-01', date_format)
         formatted_data[delta.days] = data_record[1]
     sorted(formatted_data)
-    print(formatted_data)
+    print(formatted_data.keys())
     return formatted_data
 
 # return dict{zip(date, ema)}        
@@ -48,7 +53,6 @@ def get_ema(stock_data, mod):
     ema = {}
     N = 0
     ema_t0 = 0
-    plt.figure()
     for date in stock_data:
         stock_data_daily = stock_data[date]
         N += 1
@@ -62,8 +66,6 @@ def get_ema(stock_data, mod):
 def get_ema_dif(ema_dict, day_range_alpha, day_range_beta):
     ema_tuples = ema_dict.items()
     ema_dif = {}
-    if (len(ema_tuples) < day_range_beta):
-        return ema_dif
     ema_slow = 0
     ema_fast = 0
     slow_head = 0
@@ -85,7 +87,7 @@ def get_ema_dif(ema_dict, day_range_alpha, day_range_beta):
             N_slow = day_range_beta
             ema_slow = culmulative_range_average(ema_slow, N_slow, ema, ema_tuples[slow_head][1])
             slow_head += 1
-            ema_dif[date] = ema_fast - ema_slow
+            ema_dif[date] = ema_slow - ema_fast
         else:
             ema_slow = culmulative_range_average(ema_slow, N_slow, ema, 0)
     return ema_dif
@@ -93,8 +95,6 @@ def get_ema_dif(ema_dict, day_range_alpha, day_range_beta):
 def get_macd(ema_dif, day_range):
     macd = {}
     ema_tuples = ema_dif.items()
-    if (len(ema_tuples) < day_range):
-        return macd
     N = 0
     head = 0
     ema_culmulative = 0
