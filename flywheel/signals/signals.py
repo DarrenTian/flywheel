@@ -5,6 +5,7 @@ import sys
 import imp
 
 from datetime import date
+from datetime import datetime
 
 DUMMY_DATA_PATH_WINDOWS = "C:\\Users\\silentsea\\Desktop\\projects\\flywheel\\flywheel\\market\\stock_data.json"
 DUMMY_DATA_PATH = "../market/stock_data.json"
@@ -18,23 +19,29 @@ def get_price():
 def process_market_data(market_data):
     flag = True
     for ticker in market_data:
-        ema = get_ema(market_data[ticker], "Close")
+        ema = get_ema(format_date_for_market_data(market_data[ticker]), "Close")
+        ema_dif = get_ema_dif(ema, 2, 4)
+        macd = get_macd(ema_dif, 3)
+        data = []
+        data.append(ema.values())
+        data.append(ema_dif.values())
+        data.append(macd.values())
+        print(data)
         #print(ema)
         if flag:
             imp.load_source('lineplot', '../utils/matplot.py').lineplot(
-                format_date_to_float(ema.keys()), ema.values())
-            flag = False
+                ema.keys(), data)
+            #flag = False
 
-def format_date_to_float(dates):
-    formatted_dates = []
-    for date in dates:
-        float_date = 0.0
-        for c in date:
-            c = c.encode('ascii','ignore')
-            if (c >= '0' and c <='9'):
-                float_date = float_date * 10 + int(c)
-        formatted_dates.append(float_date)
-    return formatted_dates
+def format_date_for_market_data(data):
+    formatted_data = {}
+    date_format = "%Y-%m-%d"
+    for data_record in data.items():
+        delta = datetime.strptime(data_record[0], date_format) - datetime.strptime('2000-01-01', date_format)
+        formatted_data[delta.days] = data_record[1]
+    sorted(formatted_data)
+    print(formatted_data)
+    return formatted_data
 
 # return dict{zip(date, ema)}        
 def get_ema(stock_data, mod):
@@ -94,6 +101,7 @@ def get_macd(ema_dif, day_range):
     for i in range(len(ema_tuples)):
         N += 1
         date, ema = ema_tuples[i]
+        macd[date] = 0
         if (N >= day_range):
             N = day_range
             ema_culmulative = culmulative_range_average(ema_culmulative, N, ema, ema_tuples[head][1])

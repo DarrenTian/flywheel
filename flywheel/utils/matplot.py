@@ -1,10 +1,11 @@
 import matplotlib.pyplot as plt
 
-def lineplot(x_data, y_data, x_label="", y_label="", title=""):
-    #print(x_data)
-    #print(y_data)
-    #x_data = [0, 1, 2, 3]
-    #y_data = [2, 4, 6, 8]
+def lineplot(x_data, y_datas, x_label="", y_label="", title=""):
+	for y_data in y_datas:
+		plt.plot(x_data, y_data)
+	plt.show()
+
+def subfig_lineplot(x_data, y_data, x_label="", y_label="", title=""):
     _, ax = plt.subplots()
 
     ax.plot(x_data, y_data, lw = 2, color = '#539caf', alpha = 1)
