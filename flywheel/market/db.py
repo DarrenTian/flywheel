@@ -1,3 +1,5 @@
+import yfinance as yf
+
 from datetime import date
 from playhouse.db_url import connect
 
@@ -59,5 +61,25 @@ class db:
             if value is not None:
                 result.append((date, value))
 
-    def __update_db(self):
-        pass
+
+    def __update_db(self, ticker, market_date_format):
+        stock = yf.Ticker(ticker)
+        stock_history_price_dict = self.__crawl_stock_history_price(stock, "10d", "1d")
+
+        # overwrites ticker history price data, updates the stock data and stores in database
+        insert_sql = '''
+            REPLACE INTO MARKET (ticket, date, open, high, low, close, volume, dividends, stock_splits)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        '''
+        record_list = []
+        for key, value in stock_history_price_dict.items():
+            record_list.append((ticker, key, value['Open'], value['High'], value['Low'], value['Close'], value['Volume'], value['Dividends'], value['Stock Splits']))
+        self.cur.executemany(insert_sql, record_list)
+        self.conn.commit()
+        return stock_history_price_dict[market_date_format]
+
+
+    def __crawl_stock_history_price(self, stock_ticker, period="10d", interval="1d"):
+        ticker_history_price = stock_ticker.history(period=period, interval=interval)
+        ticker_history_price.index = ticker_history_price.index.to_series().apply(lambda x: str(x)[:10])
+        return ticker_history_price.to_dict('index')
