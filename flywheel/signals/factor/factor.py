@@ -8,6 +8,8 @@ from flywheel.market.db import db
 # E.g.
 # factory = factor_factory()
 # volume_factor = factory.get_factor('volume')
+# dates = ['2020-09-01', '2020-09-02', '2020-09-03']
+# volumes = volume_factor.get_multidate_value('GOOG', dates)
 class factor_factory:
 
     def __init__(self):

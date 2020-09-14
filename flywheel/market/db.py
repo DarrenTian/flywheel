@@ -39,7 +39,7 @@ class db:
         rows = self.cur.fetchall()
 
         if len(rows) == 0:
-            self.update_db(ticker, query_date_format)
+            self.__update_db(ticker, query_date_format)
 
             # re-query in the DB after update
             self.cur.execute(read_sql, (ticker, query_date_format,))
@@ -50,6 +50,14 @@ class db:
             return None
         else:
             return rows[0][self.value_index[value_name]]
+
+    # TODO: query multidate datas instead of querying date.
+    def get_multidate_datas(self, ticker, value_name, dates):
+        result = []
+        for date in dates:
+            value = self.get_data(ticker, value_name, date)
+            if value is not None:
+                result.append((date, value))
 
     def __update_db(self):
         pass

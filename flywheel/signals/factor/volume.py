@@ -9,3 +9,7 @@ class volume(factor):
     # get volume for single date
     def get_value(self, ticker, date):
         return self.db.get_data(ticker, self.name, date)
+
+    # get volume for multi date
+    def get_multidate_value(self, ticker, dates):
+        return self.db.get_multidate_datas(ticker, self.name, dates)
