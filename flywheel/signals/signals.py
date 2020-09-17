@@ -8,7 +8,7 @@ from datetime import date
 from datetime import datetime
 
 DUMMY_DATA_PATH_WINDOWS = "C:\\Users\\silentsea\\Desktop\\projects\\flywheel\\flywheel\\market\\stock_data.json"
-DUMMY_DATA_PATH = "../market/stock_data.json"
+DUMMY_DATA_PATH = "/Users/yayuntian/Documents/github/flywheel/flywheel/market/stock_data.json"
 MOD_CANDIDATES = ["Open", "High", "Low", "Close", "Volume", "Dividends", "Stock Splits"]
 
 def get_price():
@@ -64,7 +64,7 @@ def get_ema(stock_data, mod):
 
 # return dict{zip(date, ema_dif)}
 def get_ema_dif(ema_dict, day_range_alpha, day_range_beta):
-    ema_tuples = ema_dict.items()
+    ema_tuples = list(ema_dict.items())
     ema_dif = {}
     ema_slow = 0
     ema_fast = 0
@@ -94,7 +94,7 @@ def get_ema_dif(ema_dict, day_range_alpha, day_range_beta):
 
 def get_macd(ema_dif, day_range):
     macd = {}
-    ema_tuples = ema_dif.items()
+    ema_tuples = list(ema_dif.items())
     N = 0
     head = 0
     ema_culmulative = 0

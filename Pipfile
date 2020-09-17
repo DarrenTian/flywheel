@@ -8,6 +8,7 @@ pylint = "*"
 pytest = "*"
 ipython = "*"
 jupyter = "*"
+matplotlib = "*"
 
 [packages]
 google-api-python-client = "*"
