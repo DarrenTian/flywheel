@@ -74,6 +74,13 @@ $ pipenv run python -m flywheel
 $ pipenv run python -m flywheel --email # send email
 ```
 
+### run individual script
+If you are trying to hack up test by implementing main function in individual script:
+```commandline
+$ pipenv run python -m flywheel.signals.signals
+```
+This can help resolve any relative path issue.
+
 ### docker run
 
 ```commandline

@@ -147,3 +147,6 @@ flywheel/utils/token.pickle
 
 # requirements
 requirements.txt
+
+# image
+img/*

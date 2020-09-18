@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 
 def lineplot(x_data, y_datas, x_label="", y_label="", title=""):
-	for y_data in y_datas:
-		plt.plot(x_data, y_data)
-	plt.show()
+    for y_data in y_datas:
+        plt.plot(x_data, y_data)
+    #plt.show()
+    plt.savefig("img/"+title+".png")
 
 def subfig_lineplot(x_data, y_data, x_label="", y_label="", title=""):
     _, ax = plt.subplots()
@@ -13,4 +14,4 @@ def subfig_lineplot(x_data, y_data, x_label="", y_label="", title=""):
     ax.set_title(title)
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
-    plt.show()
+    plt.savefig(title+".png")

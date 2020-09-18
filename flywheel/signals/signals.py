@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 import os
 import sys
 import imp
+from flywheel.utils import matplot
 
 from datetime import date
 from datetime import datetime
 
-DUMMY_DATA_PATH_WINDOWS = "C:\\Users\\silentsea\\Desktop\\projects\\flywheel\\flywheel\\market\\stock_data.json"
-DUMMY_DATA_PATH = "/Users/yayuntian/Documents/github/flywheel/flywheel/market/stock_data.json"
+DUMMY_DATA_PATH = "flywheel/market/stock_data.json"
 MOD_CANDIDATES = ["Open", "High", "Low", "Close", "Volume", "Dividends", "Stock Splits"]
 
 def get_price():
@@ -34,8 +34,7 @@ def process_market_data(market_data):
         data.append(macd.values())
         #print(data)
         if flag:
-            imp.load_source('lineplot', '../utils/matplot.py').lineplot(
-                ema.keys(), data)
+            matplot.lineplot(ema.keys(), data, title=ticker)
             #flag = False
 
 def format_date_for_market_data(data):
@@ -45,7 +44,7 @@ def format_date_for_market_data(data):
         delta = datetime.strptime(data_record[0], date_format) - datetime.strptime('2000-01-01', date_format)
         formatted_data[delta.days] = data_record[1]
     sorted(formatted_data)
-    print(formatted_data.keys())
+    #print(formatted_data.keys())
     return formatted_data
 
 # return dict{zip(date, ema)}        
