@@ -41,8 +41,9 @@ def format_date_for_market_data(data):
     formatted_data = {}
     date_format = "%Y-%m-%d"
     for data_record in data.items():
-        delta = datetime.strptime(data_record[0], date_format) - datetime.strptime('2000-01-01', date_format)
-        formatted_data[delta.days] = data_record[1]
+        #print(data_record[0])
+        date = datetime.strptime(data_record[0], date_format)# - datetime.strptime('2000-01-01', date_format)
+        formatted_data[date] = data_record[1]
     sorted(formatted_data)
     #print(formatted_data.keys())
     return formatted_data
