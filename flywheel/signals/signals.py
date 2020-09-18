@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 import os
 import sys
 import imp
+from flywheel.settings import *
 from flywheel.utils import matplot
+from flywheel.market.market import Market
 
 from datetime import date
 from datetime import datetime
@@ -11,16 +13,19 @@ from datetime import datetime
 DUMMY_DATA_PATH = "flywheel/market/stock_data.json"
 MOD_CANDIDATES = ["Open", "High", "Low", "Close", "Volume", "Dividends", "Stock Splits"]
 
+market = Market()
+
 def get_price():
     with open(DUMMY_DATA_PATH, 'r') as json_file:
         stock_data = json.load(json_file)
         return stock_data
 
 def process_market_data(market_data):
+    print(STOCK_LIST)
     flag = True
-    for ticker in market_data:
-        formatted_data = format_date_for_market_data(market_data[ticker])
-        print(formatted_data)
+    for ticker in STOCK_LIST:
+        formatted_data = market.get_history(ticker)
+        #print(formatted_data)
         ema = get_ema(formatted_data, "Close")
         ema_dif = get_ema_dif(ema, 7, 14)
         macd = get_macd(ema_dif, 9)
@@ -36,17 +41,6 @@ def process_market_data(market_data):
         if flag:
             matplot.lineplot(ema.keys(), data, title=ticker)
             #flag = False
-
-def format_date_for_market_data(data):
-    formatted_data = {}
-    date_format = "%Y-%m-%d"
-    for data_record in data.items():
-        #print(data_record[0])
-        date = datetime.strptime(data_record[0], date_format)# - datetime.strptime('2000-01-01', date_format)
-        formatted_data[date] = data_record[1]
-    sorted(formatted_data)
-    #print(formatted_data.keys())
-    return formatted_data
 
 # return dict{zip(date, ema)}        
 def get_ema(stock_data, mod):

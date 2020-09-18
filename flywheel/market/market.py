@@ -2,7 +2,7 @@ import yfinance as yf
 import json
 import sqlite3
 
-from datetime import date
+from datetime import date, datetime
 from playhouse.db_url import connect
 
 #DUMMY_DATA_PATH = 'flywheel/market/stock_data.json'
@@ -128,6 +128,19 @@ class Market:
                 return self.update_stock_data(stock_data, ticker, market_date_format)['Close']
             else:
                 return stock_data[ticker][market_date_format]['Close']
+    
+    def get_history(self, ticker):
+        formatted_data = {}
+        with open(self.DUMMY_DATA_PATH, 'r') as json_file:
+            stock_data = json.load(json_file)[ticker]
+            date_format = "%Y-%m-%d"
+            for data_record in stock_data.items():
+                #print(data_record[0])
+                date = datetime.strptime(data_record[0], date_format)# - datetime.strptime('2000-01-01', date_format)
+                formatted_data[date] = data_record[1]
+        sorted(formatted_data)
+            #print(formatted_data.keys())
+        return formatted_data
 
     def update_stock_data(self, stock_data, ticker, market_date_format):
         stock = yf.Ticker(ticker)
