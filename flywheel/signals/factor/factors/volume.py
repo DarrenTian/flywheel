@@ -1,5 +1,4 @@
-from flywheel.signals.factor.factor import factor
-
+from .factor_interface import factor
 
 class volume(factor):
 
@@ -11,5 +10,6 @@ class volume(factor):
         return self.db.get_data(ticker, self.name, date)
 
     # get volume for multi date
+    # Output format is dataframe
     def get_multidate_value(self, ticker, dates):
         return self.db.get_multidate_datas(ticker, self.name, dates)

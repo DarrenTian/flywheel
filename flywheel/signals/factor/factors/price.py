@@ -1,5 +1,4 @@
-from flywheel.signals.factor.factor import factor
-
+from .factor_interface import factor
 
 class price(factor):
 
@@ -11,5 +10,6 @@ class price(factor):
         return self.db.get_data(ticker, self.name, date)
 
     # get price for multi date
+    # Output format is dataframe
     def get_multidate_value(self, ticker, dates):
-        return self.db.get_multidate_datas(ticker, self.name, dates)
+        return self.db.get_multidate_datas(ticker, 'close', dates)

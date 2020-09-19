@@ -1,3 +1,4 @@
+import pandas as pd
 import yfinance as yf
 
 from datetime import date
@@ -31,7 +32,7 @@ class db:
         query_date_format = str(date)[:10]
 
         read_sql = '''
-            SELECT ?
+            SELECT *
             FROM MARKET
             WHERE ticket = ?
             AND date = ?
@@ -59,7 +60,8 @@ class db:
         for date in dates:
             value = self.get_data(ticker, value_name, date)
             if value is not None:
-                result.append((date, value))
+                result.append([date, value])
+        return pd.DataFrame(result, columns=['date', value_name])
 
 
     def __update_db(self, ticker, market_date_format):
@@ -76,10 +78,14 @@ class db:
             record_list.append((ticker, key, value['Open'], value['High'], value['Low'], value['Close'], value['Volume'], value['Dividends'], value['Stock Splits']))
         self.cur.executemany(insert_sql, record_list)
         self.conn.commit()
-        return stock_history_price_dict[market_date_format]
 
 
     def __crawl_stock_history_price(self, stock_ticker, period="10d", interval="1d"):
         ticker_history_price = stock_ticker.history(period=period, interval=interval)
         ticker_history_price.index = ticker_history_price.index.to_series().apply(lambda x: str(x)[:10])
         return ticker_history_price.to_dict('index')
+
+if __name__ == '__main__':
+    database = db()
+    t = database.get_multidate_datas('GOOG', 'close', ['2020-09-17', '2020-09-18', '2020-09-19'])
+    print(t)
