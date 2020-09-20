@@ -1,4 +1,4 @@
-synctax = "proto2";
+syntax = "proto2";
 
 package signal;
 
