@@ -9,6 +9,7 @@ pytest = "*"
 ipython = "*"
 jupyter = "*"
 matplotlib = "*"
+rope = "*"
 
 [packages]
 google-api-python-client = "*"
@@ -26,6 +27,7 @@ gevent = "*"
 pymysql = "*"
 redis = "*"
 sentry-sdk = "*"
+"oauth2client" = "*"
 
 [requires]
 python_version = "3.7"

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 import sys
 import imp
-from flywheel.settings import *
+from flywheel.settings import STOCK_LIST
 from flywheel.utils import matplot
 from flywheel.market.market import Market
 
@@ -14,6 +14,17 @@ DUMMY_DATA_PATH = "flywheel/market/stock_data.json"
 MOD_CANDIDATES = ["Open", "High", "Low", "Close", "Volume", "Dividends", "Stock Splits"]
 
 market = Market()
+
+registered_signals = ['MACD']
+
+def compute(ticker):
+    pass
+
+# Backtesting done offlines
+def recommend(ticker):
+    # Access signals and then make buy decisions.
+    recommenation = ''#'BUY+'/'BUY'/'HOLD'/'SELL'/'SELL+'
+    return recommenation
 
 def get_price():
     with open(DUMMY_DATA_PATH, 'r') as json_file:

@@ -8,6 +8,9 @@ from playhouse.db_url import connect
 #DUMMY_DATA_PATH = 'flywheel/market/stock_data.json'
 DUMMY_DATA_PATH = 'stock_data.json'
 
+def update(ticker):
+    pass
+
 market_date = date.today()
 
 # Dumb implemention telling if it's weekday or not

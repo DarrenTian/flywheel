@@ -11,6 +11,9 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request # pylint: disable=no-name-in-module,import-error
 
+import logging
+logging.getLogger('googleapiclient.discovery_cache').setLevel(logging.ERROR) # Silence some wired error
+
 # TODO: offline access, otherwise token will expire
 SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
 
