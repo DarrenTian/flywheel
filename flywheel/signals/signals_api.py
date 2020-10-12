@@ -1,0 +1,1 @@
+#TODO: signal api which can be used by the strategy

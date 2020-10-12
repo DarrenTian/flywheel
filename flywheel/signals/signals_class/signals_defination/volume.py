@@ -1,6 +1,6 @@
-from .factor_interface import factor
+from .signal_interface import signal
 
-class volume(factor):
+class volume(signal):
 
     def __init__(self, name):
         super().__init__(name)
