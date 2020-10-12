@@ -15,12 +15,13 @@ message BaseSignal {
 }
 
 message PriceSignal {
-	repeated PriceEma price_ema = 1;
+	repeated PriceStatistic price_ema = 1;
+	repeated PriceStatistic price_rsi = 2;
 }
 
-message PriceEma {
+message PriceStatistic {
 	optional int32 date = 1;
-	optional double ema = 2;
+	optional double value = 2;
 }
 
 

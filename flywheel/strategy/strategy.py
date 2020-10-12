@@ -1,5 +1,7 @@
 import math
 
+import flywheel.proto_gen.signal.signal_pb2
+
 class Action:
     def __init__(self, action_type={}, action_value={}):
         self.action_type = action_type
@@ -41,7 +43,7 @@ class BaseMomentum(Strategy):
     def get_shortterm_trend(self, signals):
         pass
 
-    def get_trend_onging_possibility(self, signals)：
+    def get_trend_onging_possibility(self, signals):
         pass
 
 class PortfolioRebalanceStrategy(Strategy):
