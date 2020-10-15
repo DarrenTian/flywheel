@@ -53,6 +53,7 @@ message Trend {
 	optional TrendType type = 1[default = NO_TREND];
 	optional NormInterval confidence = 2;
 	repeated double extreme_points = 3;
+	optional StaticInterval date_range = 4;
 }
 
 message FluctuationRange {
