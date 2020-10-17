@@ -15,7 +15,7 @@ message BaseSignal {
 }
 
 message PriceSignal {
-	repeated PriceStatistic price_ema = 1;
+	optional PriceStatistic price_ema_200 = 1;
 	repeated PriceStatistic price_rsi = 2;
 }
 
@@ -23,7 +23,6 @@ message PriceStatistic {
 	optional int32 date = 1;
 	optional double value = 2;
 }
-
 
 message ValumnSignal {
 	oneof valumn {

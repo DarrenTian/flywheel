@@ -1,4 +1,4 @@
-from .signal_interface import signal
+from flywheel.signals.signals_class.signals_defination.signal_interface import signal
 
 class volume(signal):
 
