@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto2',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0csignal.proto\x12\x06signal\"\x9f\x01\n\nMetaSignal\x12\x13\n\x0bticket_name\x18\x01 \x01(\t\x12\'\n\x0b\x62\x61se_signal\x18\x02 \x01(\x0b\x32\x12.signal.BaseSignal\x12\x1d\n\x06trends\x18\x03 \x03(\x0b\x32\r.signal.Trend\x12\x34\n\x12\x66lucturation_range\x18\x04 \x03(\x0b\x32\x18.signal.FluctuationRange\"d\n\nBaseSignal\x12)\n\x0cprice_signal\x18\x01 \x01(\x0b\x32\x13.signal.PriceSignal\x12+\n\rvalumn_signal\x18\x02 \x01(\x0b\x32\x14.signal.ValumnSignal\"2\n\x0bPriceSignal\x12#\n\tprice_ema\x18\x01 \x03(\x0b\x32\x10.signal.PriceEma\"%\n\x08PriceEma\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\x05\x12\x0b\n\x03\x65ma\x18\x02 \x01(\x01\"a\n\x0cValumnSignal\x12\x14\n\nraw_valumn\x18\x01 \x01(\x01H\x00\x12\x31\n\x11normalized_valumn\x18\x02 \x01(\x0b\x32\x14.signal.NormIntervalH\x00\x42\x08\n\x06valumn\"-\n\x0eStaticInterval\x12\r\n\x05\x66loor\x18\x01 \x01(\x01\x12\x0c\n\x04\x63\x65il\x18\x02 \x01(\x01\"0\n\x0cNormInterval\x12\r\n\x05pivot\x18\x01 \x01(\x01\x12\x11\n\tdeviation\x18\x02 \x01(\x01\"\xc4\x01\n\x05Trend\x12/\n\x04type\x18\x01 \x01(\x0e\x32\x17.signal.Trend.TrendType:\x08NO_TREND\x12(\n\nconfidence\x18\x02 \x01(\x0b\x32\x14.signal.NormInterval\x12\x16\n\x0e\x65xtreme_points\x18\x03 \x03(\x01\"H\n\tTrendType\x12\x0c\n\x08NO_TREND\x10\x00\x12\x0f\n\x0b\x46luctuation\x10\x01\x12\x06\n\x02UP\x10\x02\x12\x08\n\x04\x44OWN\x10\x03\x12\n\n\x06STATIC\x10\x04\"\xf1\x01\n\x10\x46luctuationRange\x12\x34\n\x12static_floor_range\x18\x01 \x01(\x0b\x32\x16.signal.StaticIntervalH\x00\x12\x30\n\x10norm_floor_range\x18\x02 \x01(\x0b\x32\x14.signal.NormIntervalH\x00\x12\x33\n\x11static_ceil_range\x18\x03 \x01(\x0b\x32\x16.signal.StaticIntervalH\x01\x12/\n\x0fnorm_ceil_range\x18\x04 \x01(\x0b\x32\x14.signal.NormIntervalH\x01\x42\x07\n\x05\x66loorB\x06\n\x04\x63\x65il'
+  serialized_pb=b'\n\x0csignal.proto\x12\x06signal\"\x9f\x01\n\nMetaSignal\x12\x13\n\x0bticket_name\x18\x01 \x01(\t\x12\'\n\x0b\x62\x61se_signal\x18\x02 \x01(\x0b\x32\x12.signal.BaseSignal\x12\x1d\n\x06trends\x18\x03 \x03(\x0b\x32\r.signal.Trend\x12\x34\n\x12\x66lucturation_range\x18\x04 \x03(\x0b\x32\x18.signal.FluctuationRange\"d\n\nBaseSignal\x12)\n\x0cprice_signal\x18\x01 \x01(\x0b\x32\x13.signal.PriceSignal\x12+\n\rvalumn_signal\x18\x02 \x01(\x0b\x32\x14.signal.ValumnSignal\"g\n\x0bPriceSignal\x12-\n\rprice_ema_200\x18\x01 \x01(\x0b\x32\x16.signal.PriceStatistic\x12)\n\tprice_rsi\x18\x02 \x03(\x0b\x32\x16.signal.PriceStatistic\"-\n\x0ePriceStatistic\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\x01\"a\n\x0cValumnSignal\x12\x14\n\nraw_valumn\x18\x01 \x01(\x01H\x00\x12\x31\n\x11normalized_valumn\x18\x02 \x01(\x0b\x32\x14.signal.NormIntervalH\x00\x42\x08\n\x06valumn\"-\n\x0eStaticInterval\x12\r\n\x05\x66loor\x18\x01 \x01(\x01\x12\x0c\n\x04\x63\x65il\x18\x02 \x01(\x01\"0\n\x0cNormInterval\x12\r\n\x05pivot\x18\x01 \x01(\x01\x12\x11\n\tdeviation\x18\x02 \x01(\x01\"\xf0\x01\n\x05Trend\x12/\n\x04type\x18\x01 \x01(\x0e\x32\x17.signal.Trend.TrendType:\x08NO_TREND\x12(\n\nconfidence\x18\x02 \x01(\x0b\x32\x14.signal.NormInterval\x12\x16\n\x0e\x65xtreme_points\x18\x03 \x03(\x01\x12*\n\ndate_range\x18\x04 \x01(\x0b\x32\x16.signal.StaticInterval\"H\n\tTrendType\x12\x0c\n\x08NO_TREND\x10\x00\x12\x0f\n\x0b\x46luctuation\x10\x01\x12\x06\n\x02UP\x10\x02\x12\x08\n\x04\x44OWN\x10\x03\x12\n\n\x06STATIC\x10\x04\"\xf1\x01\n\x10\x46luctuationRange\x12\x34\n\x12static_floor_range\x18\x01 \x01(\x0b\x32\x16.signal.StaticIntervalH\x00\x12\x30\n\x10norm_floor_range\x18\x02 \x01(\x0b\x32\x14.signal.NormIntervalH\x00\x12\x33\n\x11static_ceil_range\x18\x03 \x01(\x0b\x32\x16.signal.StaticIntervalH\x01\x12/\n\x0fnorm_ceil_range\x18\x04 \x01(\x0b\x32\x14.signal.NormIntervalH\x01\x42\x07\n\x05\x66loorB\x06\n\x04\x63\x65il'
 )
 
 
@@ -59,8 +59,8 @@ _TREND_TRENDTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=700,
-  serialized_end=772,
+  serialized_start=805,
+  serialized_end=877,
 )
 _sym_db.RegisterEnumDescriptor(_TREND_TRENDTYPE)
 
@@ -166,8 +166,15 @@ _PRICESIGNAL = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='price_ema', full_name='signal.PriceSignal.price_ema', index=0,
-      number=1, type=11, cpp_type=10, label=3,
+      name='price_ema_200', full_name='signal.PriceSignal.price_ema_200', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='price_rsi', full_name='signal.PriceSignal.price_rsi', index=1,
+      number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -185,27 +192,27 @@ _PRICESIGNAL = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=288,
-  serialized_end=338,
+  serialized_end=391,
 )
 
 
-_PRICEEMA = _descriptor.Descriptor(
-  name='PriceEma',
-  full_name='signal.PriceEma',
+_PRICESTATISTIC = _descriptor.Descriptor(
+  name='PriceStatistic',
+  full_name='signal.PriceStatistic',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='date', full_name='signal.PriceEma.date', index=0,
+      name='date', full_name='signal.PriceStatistic.date', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='ema', full_name='signal.PriceEma.ema', index=1,
+      name='value', full_name='signal.PriceStatistic.value', index=1,
       number=2, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
@@ -223,8 +230,8 @@ _PRICEEMA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=340,
-  serialized_end=377,
+  serialized_start=393,
+  serialized_end=438,
 )
 
 
@@ -267,8 +274,8 @@ _VALUMNSIGNAL = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=379,
-  serialized_end=476,
+  serialized_start=440,
+  serialized_end=537,
 )
 
 
@@ -306,8 +313,8 @@ _STATICINTERVAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=478,
-  serialized_end=523,
+  serialized_start=539,
+  serialized_end=584,
 )
 
 
@@ -345,8 +352,8 @@ _NORMINTERVAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=525,
-  serialized_end=573,
+  serialized_start=586,
+  serialized_end=634,
 )
 
 
@@ -379,6 +386,13 @@ _TREND = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='date_range', full_name='signal.Trend.date_range', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -392,8 +406,8 @@ _TREND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=576,
-  serialized_end=772,
+  serialized_start=637,
+  serialized_end=877,
 )
 
 
@@ -455,8 +469,8 @@ _FLUCTUATIONRANGE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=775,
-  serialized_end=1016,
+  serialized_start=880,
+  serialized_end=1121,
 )
 
 _METASIGNAL.fields_by_name['base_signal'].message_type = _BASESIGNAL
@@ -464,7 +478,8 @@ _METASIGNAL.fields_by_name['trends'].message_type = _TREND
 _METASIGNAL.fields_by_name['flucturation_range'].message_type = _FLUCTUATIONRANGE
 _BASESIGNAL.fields_by_name['price_signal'].message_type = _PRICESIGNAL
 _BASESIGNAL.fields_by_name['valumn_signal'].message_type = _VALUMNSIGNAL
-_PRICESIGNAL.fields_by_name['price_ema'].message_type = _PRICEEMA
+_PRICESIGNAL.fields_by_name['price_ema_200'].message_type = _PRICESTATISTIC
+_PRICESIGNAL.fields_by_name['price_rsi'].message_type = _PRICESTATISTIC
 _VALUMNSIGNAL.fields_by_name['normalized_valumn'].message_type = _NORMINTERVAL
 _VALUMNSIGNAL.oneofs_by_name['valumn'].fields.append(
   _VALUMNSIGNAL.fields_by_name['raw_valumn'])
@@ -474,6 +489,7 @@ _VALUMNSIGNAL.oneofs_by_name['valumn'].fields.append(
 _VALUMNSIGNAL.fields_by_name['normalized_valumn'].containing_oneof = _VALUMNSIGNAL.oneofs_by_name['valumn']
 _TREND.fields_by_name['type'].enum_type = _TREND_TRENDTYPE
 _TREND.fields_by_name['confidence'].message_type = _NORMINTERVAL
+_TREND.fields_by_name['date_range'].message_type = _STATICINTERVAL
 _TREND_TRENDTYPE.containing_type = _TREND
 _FLUCTUATIONRANGE.fields_by_name['static_floor_range'].message_type = _STATICINTERVAL
 _FLUCTUATIONRANGE.fields_by_name['norm_floor_range'].message_type = _NORMINTERVAL
@@ -494,7 +510,7 @@ _FLUCTUATIONRANGE.fields_by_name['norm_ceil_range'].containing_oneof = _FLUCTUAT
 DESCRIPTOR.message_types_by_name['MetaSignal'] = _METASIGNAL
 DESCRIPTOR.message_types_by_name['BaseSignal'] = _BASESIGNAL
 DESCRIPTOR.message_types_by_name['PriceSignal'] = _PRICESIGNAL
-DESCRIPTOR.message_types_by_name['PriceEma'] = _PRICEEMA
+DESCRIPTOR.message_types_by_name['PriceStatistic'] = _PRICESTATISTIC
 DESCRIPTOR.message_types_by_name['ValumnSignal'] = _VALUMNSIGNAL
 DESCRIPTOR.message_types_by_name['StaticInterval'] = _STATICINTERVAL
 DESCRIPTOR.message_types_by_name['NormInterval'] = _NORMINTERVAL
@@ -523,12 +539,12 @@ PriceSignal = _reflection.GeneratedProtocolMessageType('PriceSignal', (_message.
   })
 _sym_db.RegisterMessage(PriceSignal)
 
-PriceEma = _reflection.GeneratedProtocolMessageType('PriceEma', (_message.Message,), {
-  'DESCRIPTOR' : _PRICEEMA,
+PriceStatistic = _reflection.GeneratedProtocolMessageType('PriceStatistic', (_message.Message,), {
+  'DESCRIPTOR' : _PRICESTATISTIC,
   '__module__' : 'signal_pb2'
-  # @@protoc_insertion_point(class_scope:signal.PriceEma)
+  # @@protoc_insertion_point(class_scope:signal.PriceStatistic)
   })
-_sym_db.RegisterMessage(PriceEma)
+_sym_db.RegisterMessage(PriceStatistic)
 
 ValumnSignal = _reflection.GeneratedProtocolMessageType('ValumnSignal', (_message.Message,), {
   'DESCRIPTOR' : _VALUMNSIGNAL,

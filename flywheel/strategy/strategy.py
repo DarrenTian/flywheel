@@ -26,6 +26,8 @@ class BaseMomentum(Strategy):
     # 3. advanced use 100 ema of momentum to replace 0
     # signals: list of Signal
     self.operation_list = []
+    self.momentum_multiplier = 2.0
+    self.ema_multiplier = 1.0
     def __init__(self, signals):
         pass
 
@@ -44,12 +46,17 @@ class BaseMomentum(Strategy):
     def get_trend_onging_possibility(self, signals):
         pass
 
-    # start with (0, -1, 1) * speed * peak
-    def get_critical_point_score(self, indicator, base_line):
+    # start with beta_function * speed * peak * multiplier X1, X1: hyper-premeters to finetune
+    # the alpha_function should be signoid function of (indicator - base line)
+    # the beta_function should be delta function(0, +INF) of alpha_function
+    def get_critical_point_score(self, indicator, base_line, multiplier):
         pass
 
-    # start with (0, -X, X) X: hyper-premeters to finetune
-    def get_breakthrough_score(self, indicator, range):
+    # start with (0, -X, X) X2: hyper-premeters to finetune
+    # upper breakthrough: X
+    # lower breakthrough : -X
+    # others: 0
+    def get_breakthrough_score(self, indicator, range, multiplier):
         pass
 
     # normalize function, start with cut only
@@ -73,7 +80,7 @@ class BaseMomentum(Strategy):
             base_score *= trend.confidence
 
         # momentum score
-        momentum_score = get_critical_point_score(momentum_indicator, [])
+        momentum_score = get_critical_point_score(momentum_indicator, [], self.momentum_multiplier)
 
         # ema score
         ema_score = get_critical_point_score(closing_price, ema_200)
