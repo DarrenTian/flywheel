@@ -9,10 +9,23 @@ def get_signals(ticket_name):
     meta_signal.ticket_name = ticket_name
 
     factory = signal_factory()
-    price_signal = factory.get_signal('price')
     today_date = str(date.today())[:10]
-    ema = price_signal.get_ema('GOOG', today_date, 200)
-    meta_signal.base_signal.price_signal = ema
+
+    # get ema
+    price_signal = factory.get_signal('price')
+    ema = price_signal.ema(ticket_name, today_date, 200)
+    meta_signal.base_signal.price_signal.price_ema_200.date = today_date
+    meta_signal.base_signal.price_signal.price_ema_200.value = ema
+
+    # get rsi
+    rsi = price_signal.rsi(ticket_name, today_date)
+    meta_signal.base_signal.price_signal.price_rsi.date = today_date
+    meta_signal.base_signal.price_signal.price_rsi.value = rsi
+
+    # get volume
+    volume_signal = factory.get_signal('volume')
+    meta_signal.base_signal.volume_signal.volume.raw_volume = volume_signal.get_value(ticket_name, today_date)
+
 
 if __name__ == '__main__':
     get_signals('GOOG')

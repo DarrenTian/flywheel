@@ -17,7 +17,7 @@ class price(signal):
         return self.db.get_multidate_datas(ticker, 'close', dates)
 
     # get N days ema end of date.
-    def get_ema(self, ticker, date, N):
+    def ema(self, ticker, date, N):
         valid_dates = valid_market_dates(date, N)
         prices_df = self.get_multidate_value(ticker, valid_dates)
         prices = prices_df['close'].tolist()
@@ -31,3 +31,27 @@ class price(signal):
             ema_t1 = ema_t0 + alpha * (price - ema_t0)
             ema_t0 = ema_t1
         return ema_t0
+
+    # get Relative Strength Index
+    def rsi(self, ticker, date):
+        valid_dates = valid_market_dates(date, 15)
+        prices_df = self.get_multidate_value(ticker, valid_dates)
+        prices = prices_df['close'].tolist()
+
+        sum_past_14_gain = 0.0
+        sum_past_14_loss = 0.0
+        for i in range(1, 15):
+            dif = prices[i] - prices[i - 1]
+            if (dif > 0):
+                sum_past_14_gain = sum_past_14_gain + dif
+            else:
+                sum_past_14_loss = sum_past_14_loss - dif
+
+        if (sum_past_14_loss != 0):
+            rs = sum_past_14_gain / sum_past_14_loss
+        else:
+            rs = 100.0
+        rsi = 100.0 - 100.0 / (1 + rs)
+        return rsi
+
+

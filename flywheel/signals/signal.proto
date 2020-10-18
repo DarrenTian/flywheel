@@ -11,22 +11,22 @@ message MetaSignal {
 
 message BaseSignal {
 	optional PriceSignal price_signal = 1;
-	optional ValumnSignal valumn_signal = 2;
+	optional VolumeSignal volume_signal = 2;
 }
 
 message PriceSignal {
 	optional PriceStatistic price_ema_200 = 1;
-	repeated PriceStatistic price_rsi = 2;
+	optional PriceStatistic price_rsi = 2;
 }
 
 message PriceStatistic {
-	optional int32 date = 1;
+	optional string date = 1;
 	optional double value = 2;
 }
 
-message ValumnSignal {
-	oneof valumn {
-		double raw_valumn = 1;
+message VolumeSignal {
+	oneof volume {
+		double raw_volume = 1;
 		NormInterval normalized_valumn = 2;
 	}
 }
