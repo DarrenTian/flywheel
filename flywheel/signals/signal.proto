@@ -1,0 +1,67 @@
+syntax = "proto2";
+
+package signal;
+
+message MetaSignal {
+	optional string ticket_name = 1;
+	optional BaseSignal base_signal = 2;
+	repeated Trend trends = 3;
+	repeated FluctuationRange flucturation_range = 4;
+}
+
+message BaseSignal {
+	optional PriceSignal price_signal = 1;
+	optional VolumeSignal volume_signal = 2;
+}
+
+message PriceSignal {
+	optional PriceStatistic price_ema_200 = 1;
+	optional PriceStatistic price_rsi = 2;
+}
+
+message PriceStatistic {
+	optional string date = 1;
+	optional double value = 2;
+}
+
+message VolumeSignal {
+	oneof volume {
+		double raw_volume = 1;
+		NormInterval normalized_valumn = 2;
+	}
+}
+
+message StaticInterval {
+	optional double floor = 1;
+	optional double ceil = 2; 
+}
+
+message NormInterval {
+	optional double pivot = 1;
+	optional double deviation = 2;
+}
+
+message Trend {
+	enum TrendType {
+		NO_TREND = 0;
+		Fluctuation = 1;
+		UP = 2;
+		DOWN = 3;
+		STATIC = 4;
+	}
+	optional TrendType type = 1[default = NO_TREND];
+	optional NormInterval confidence = 2;
+	repeated double extreme_points = 3;
+	optional StaticInterval date_range = 4;
+}
+
+message FluctuationRange {
+	oneof floor {
+		StaticInterval static_floor_range = 1;
+		NormInterval norm_floor_range = 2;
+	}
+	oneof ceil {
+		StaticInterval static_ceil_range = 3;
+		NormInterval norm_ceil_range = 4;
+	}
+}

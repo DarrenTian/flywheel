@@ -1,7 +1,7 @@
 import pandas as pd
 import yfinance as yf
 
-from datetime import date
+from datetime import date, datetime, timedelta
 from playhouse.db_url import connect
 
 
@@ -28,6 +28,7 @@ class db:
 
         self.value_index = {'ticket': 0, 'date': 1, 'open': 2, 'high': 3, 'low': 4, 'close': 5, 'volume': 6, 'dividends': 7, 'stock_splits': 8}
 
+    # TODO: crawl one day first if the data is None, return None. Otherwise crawl N days' date
     def get_data(self, ticker, value_name, date=date.today()):
         query_date_format = str(date)[:10]
 
@@ -40,9 +41,8 @@ class db:
 
         self.cur.execute(read_sql, (ticker, query_date_format,))
         rows = self.cur.fetchall()
-
         if len(rows) == 0:
-            self.__update_db(ticker, query_date_format)
+            self.__update_db(ticker, query_date_format, 1)
 
             # re-query in the DB after update
             self.cur.execute(read_sql, (ticker, query_date_format,))
@@ -63,11 +63,12 @@ class db:
                 result.append([date, value])
         return pd.DataFrame(result, columns=['date', value_name])
 
-
-    def __update_db(self, ticker, market_date_format):
+    # TODO: update N date's date from market_date_format
+    def __update_db(self, ticker, market_date_format, N):
         stock = yf.Ticker(ticker)
-        stock_history_price_dict = self.__crawl_stock_history_price(stock, "10d", "1d")
-
+        end_date = datetime.strptime(market_date_format, '%Y-%m-%d') + timedelta(days=1)
+        start_date = end_date - timedelta(days=N+1)
+        stock_history_price_dict = self.__crawl_stock_history_price(stock, start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'), "1d")
         # overwrites ticker history price data, updates the stock data and stores in database
         insert_sql = '''
             REPLACE INTO MARKET (ticket, date, open, high, low, close, volume, dividends, stock_splits)
@@ -80,12 +81,16 @@ class db:
         self.conn.commit()
 
 
-    def __crawl_stock_history_price(self, stock_ticker, period="10d", interval="1d"):
-        ticker_history_price = stock_ticker.history(period=period, interval=interval)
+    def __crawl_stock_history_price(self, stock_ticker, start, end, interval="1d"):
+        ticker_history_price = stock_ticker.history(start=start, end=end, interval=interval)
         ticker_history_price.index = ticker_history_price.index.to_series().apply(lambda x: str(x)[:10])
         return ticker_history_price.to_dict('index')
 
 if __name__ == '__main__':
     database = db()
-    t = database.get_multidate_datas('GOOG', 'close', ['2020-09-17', '2020-09-18', '2020-09-19'])
+    # t = database.get_multidate_datas('GOOG', 'close', ['2020-09-17', '2020-09-18', '2020-09-19'])
+    # t = database.get_multidate_datas('GOOG', 'close', ['2020-08-08', '2020-08-09', '2020-08-10', '2020-08-11'])
+    # t = database.get_multidate_datas('GOOG', 'close', ['2020-09-01', '2020-09-02', '2020-09-03'])
+    # t = database.get_multidate_datas('GOOG', 'close', ['2020-08-19', '2020-08-20', '2020-08-21', '2020-08-24', '2020-08-25', '2020-08-26', '2020-08-27', '2020-08-28', '2020-08-31', '2020-09-01'])
+    t = database.get_multidate_datas('GOOG', 'close', ['2020-08-21', '2020-08-28'])
     print(t)

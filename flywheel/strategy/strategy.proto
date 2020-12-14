@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+package strategy;
+
+message Action {
+	enum ActionType {
+		NO_ACTION = 0;
+		BUY = 1;
+		SELL = 2;
+	}
+	optional ActionType action_type = 1[default = NO_ACTION];
+	message ActionValue {
+		optional double share = 1;
+	}
+	optional ActionValue action_value = 2;
+}
+
+message Operation {
+	optional string ticker = 1;
+	optional Action action = 2;
+}

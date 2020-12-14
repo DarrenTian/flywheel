@@ -70,6 +70,7 @@ flywheel
 
 ```commandline
 $ pipenv install
+$ pipenv shell # so we could use installed packages, use pipenv run would restart env and make install failed
 $ pipenv run python -m flywheel
 $ pipenv run python -m flywheel --email # send email
 ```
